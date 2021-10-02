@@ -78,9 +78,9 @@
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(839, 12);
+            this.buttonClose.Location = new System.Drawing.Point(834, 12);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(50, 50);
+            this.buttonClose.Size = new System.Drawing.Size(60, 40);
             this.buttonClose.TabIndex = 3;
             this.buttonClose.Text = "Off";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -90,7 +90,7 @@
             // 
             this.buttonSwap.Location = new System.Drawing.Point(740, 12);
             this.buttonSwap.Name = "buttonSwap";
-            this.buttonSwap.Size = new System.Drawing.Size(50, 50);
+            this.buttonSwap.Size = new System.Drawing.Size(60, 40);
             this.buttonSwap.TabIndex = 4;
             this.buttonSwap.Text = "Swap";
             this.buttonSwap.UseVisualStyleBackColor = true;
