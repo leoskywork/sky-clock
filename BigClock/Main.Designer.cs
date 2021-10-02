@@ -82,7 +82,7 @@
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(60, 40);
             this.buttonClose.TabIndex = 3;
-            this.buttonClose.Text = "Off";
+            this.buttonClose.Text = "Kill";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
@@ -92,7 +92,7 @@
             this.buttonSwap.Name = "buttonSwap";
             this.buttonSwap.Size = new System.Drawing.Size(60, 40);
             this.buttonSwap.TabIndex = 4;
-            this.buttonSwap.Text = "Swap";
+            this.buttonSwap.Text = "Mode";
             this.buttonSwap.UseVisualStyleBackColor = true;
             this.buttonSwap.Click += new System.EventHandler(this.buttonSwap_Click);
             // 

@@ -11,44 +11,51 @@ namespace BigClock
 {
     public partial class Main : Form
     {
-        private bool _oddRound = true;
+        private bool _UseDefaultTimeFormat = true;
+        private int _SwapCount = (int)ClockFace.TimeWeekDate;
 
         public Main()
         {
             InitializeComponent();
             this.timerMain.Start();
-            SetTime(true);
+            SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
         }
 
-        private void SetTime(bool showComma, bool miniMode = false)
+        private void SetTime(bool defaultTimeFormat, ClockFace face)// bool miniMode = false)
         {
             var now = DateTime.Now;
-            this.labelTime.Text = now.ToString(showComma ? "H:mm" : "H:mm"); //"H:mm tt" : "h mm tt");
+            this.labelTime.Text = now.ToString(defaultTimeFormat ? "H:mm" : "H*mm"); //"H:mm tt" : "h mm tt");
 
-            if (miniMode)
+            switch (face)
             {
-                this.labelWeek.Text = null;
-                this.labelDate.Text = null;
+                case ClockFace.Time:
+                    this.labelWeek.Text = null;
+                    this.labelDate.Text = null;
 
-                this.labelWeek.Hide();
-                this.labelDate.Hide();
-            }
-            else
-            {
-                this.labelWeek.Text = now.DayOfWeek.ToString();
-                this.labelDate.Text = now.ToString("yyyy.M.d");
-                //this.labelDate.Text = "2028.22.22";//now.ToString("yyyy.M.d");
+                    break;
+                case ClockFace.TimeWeek:
+                    this.labelWeek.Text = now.DayOfWeek.ToString();
+                    this.labelDate.Text = null;
 
-                this.labelWeek.Show(); 
-                this.labelDate.Show();
+                    break;
+                case ClockFace.TimeWeekDate:
+
+                    this.labelWeek.Text = now.DayOfWeek.ToString();
+                    this.labelDate.Text = now.ToString("yyyy.MM.dd");
+                    //this.labelDate.Text = "2028.22.22";
+
+                    break;
+                default:
+                    MessageBox.Show("Unsupported clock face: " + face.ToString());
+                    break;
             }
         }
 
         private void timerMain_Tick(object sender, EventArgs e)
         {
 
-            SetTime(_oddRound, IsCurrentMiniMode());
-            _oddRound = !_oddRound;
+            _UseDefaultTimeFormat = !_UseDefaultTimeFormat;
+            SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
 
             System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString("h:m:s.fff"));
         }
@@ -76,17 +83,24 @@ namespace BigClock
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
-        //end of border-less  //
+        //end of border-less
 
         private void buttonSwap_Click(object sender, EventArgs e)
         {
-            //swap
-            this.SetTime(_oddRound, !IsCurrentMiniMode());
+            this._SwapCount++;
+            this.SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
         }
 
-        private bool IsCurrentMiniMode()
+        private ClockFace GetCurrentClockFace()
         {
-            return string.IsNullOrWhiteSpace(this.labelDate.Text);
+            return (ClockFace)(this._SwapCount % 3);
         }
+    }
+
+    public enum ClockFace
+    {
+        Time = 0,
+        TimeWeek,
+        TimeWeekDate
     }
 }
