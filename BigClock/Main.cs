@@ -20,19 +20,34 @@ namespace BigClock
             SetTime(true);
         }
 
-        private void SetTime(bool showComma)
+        private void SetTime(bool showComma, bool miniMode = false)
         {
             var now = DateTime.Now;
             this.labelTime.Text = now.ToString(showComma ? "H:mm" : "H:mm"); //"H:mm tt" : "h mm tt");
-            this.labelWeek.Text = now.DayOfWeek.ToString();
-            this.labelDate.Text = now.ToString("yyyy.M.d");
-            //this.labelDate.Text = "2028.22.22";//now.ToString("yyyy.M.d");
+
+            if (miniMode)
+            {
+                this.labelWeek.Text = null;
+                this.labelDate.Text = null;
+
+                this.labelWeek.Hide();
+                this.labelDate.Hide();
+            }
+            else
+            {
+                this.labelWeek.Text = now.DayOfWeek.ToString();
+                this.labelDate.Text = now.ToString("yyyy.M.d");
+                //this.labelDate.Text = "2028.22.22";//now.ToString("yyyy.M.d");
+
+                this.labelWeek.Show(); 
+                this.labelDate.Show();
+            }
         }
 
         private void timerMain_Tick(object sender, EventArgs e)
         {
 
-            SetTime(_oddRound);
+            SetTime(_oddRound, IsCurrentMiniMode());
             _oddRound = !_oddRound;
 
             System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString("h:m:s.fff"));
@@ -61,6 +76,17 @@ namespace BigClock
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
-        //end of border-less  //  
+        //end of border-less  //
+
+        private void buttonSwap_Click(object sender, EventArgs e)
+        {
+            //swap
+            this.SetTime(_oddRound, !IsCurrentMiniMode());
+        }
+
+        private bool IsCurrentMiniMode()
+        {
+            return string.IsNullOrWhiteSpace(this.labelDate.Text);
+        }
     }
 }

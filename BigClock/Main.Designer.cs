@@ -35,6 +35,7 @@
             this.labelDate = new System.Windows.Forms.Label();
             this.labelWeek = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonSwap = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTime
@@ -85,6 +86,16 @@
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
+            // buttonSwap
+            // 
+            this.buttonSwap.Location = new System.Drawing.Point(740, 12);
+            this.buttonSwap.Name = "buttonSwap";
+            this.buttonSwap.Size = new System.Drawing.Size(50, 50);
+            this.buttonSwap.TabIndex = 4;
+            this.buttonSwap.Text = "Swap";
+            this.buttonSwap.UseVisualStyleBackColor = true;
+            this.buttonSwap.Click += new System.EventHandler(this.buttonSwap_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -92,6 +103,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(902, 633);
             this.ControlBox = false;
+            this.Controls.Add(this.buttonSwap);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.labelWeek);
             this.Controls.Add(this.labelDate);
@@ -114,6 +126,7 @@
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.Label labelWeek;
         private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Button buttonSwap;
     }
 }
 
