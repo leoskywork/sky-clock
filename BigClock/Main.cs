@@ -61,6 +61,6 @@ namespace BigClock
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
-        //end of border-less
+        //end of border-less  //  eee
     }
 }
