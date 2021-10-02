@@ -1,0 +1,13 @@
+E:\Dev\VS\BigClock\BigClock\bin\Debug\BigClock.exe
+E:\Dev\VS\BigClock\BigClock\bin\Debug\BigClock.pdb
+E:\Dev\VS\BigClock\BigClock\obj\Debug\BigClock.Properties.Resources.resources
+E:\Dev\VS\BigClock\BigClock\obj\Debug\BigClock.csproj.GenerateResource.cache
+E:\Dev\VS\BigClock\BigClock\obj\Debug\BigClock.csproj.CoreCompileInputs.cache
+E:\Dev\VS\BigClock\BigClock\obj\Debug\BigClock.exe
+E:\Dev\VS\BigClock\BigClock\obj\Debug\BigClock.pdb
+E:\Dev\VS\BigClock\BigClock\obj\Debug\BigClock.Main.resources
+E:\Dev\VS\BigClock\BigClock\bin\Debug\BigClock.exe.manifest
+E:\Dev\VS\BigClock\BigClock\bin\Debug\BigClock.application
+E:\Dev\VS\BigClock\BigClock\obj\Debug\BigClock.exe.manifest
+E:\Dev\VS\BigClock\BigClock\obj\Debug\BigClock.application
+E:\Dev\VS\BigClock\BigClock\obj\Debug\BigClock.csprojAssemblyReference.cache
