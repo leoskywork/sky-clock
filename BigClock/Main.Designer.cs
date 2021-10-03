@@ -61,7 +61,7 @@
             this.labelDate.Font = new System.Drawing.Font("SimSun", 90F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelDate.Location = new System.Drawing.Point(0, 430);
             this.labelDate.Name = "labelDate";
-            this.labelDate.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.labelDate.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.labelDate.Size = new System.Drawing.Size(930, 200);
             this.labelDate.TabIndex = 1;
             this.labelDate.Text = "date";
@@ -72,7 +72,7 @@
             this.labelWeek.Font = new System.Drawing.Font("SimSun", 90F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelWeek.Location = new System.Drawing.Point(0, 228);
             this.labelWeek.Name = "labelWeek";
-            this.labelWeek.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.labelWeek.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.labelWeek.Size = new System.Drawing.Size(930, 202);
             this.labelWeek.TabIndex = 2;
             this.labelWeek.Text = "week";
