@@ -52,9 +52,10 @@ namespace BigClock
                 }
                 this.labelTimeComma.Show();
                 this.labelTimeComma.Location = now.Hour < 10 ? new Point(100, 0) : new Point(180, 0);
-                this.labelTimeComma.ForeColor = defaultTimeFormat ? this.labelTime.ForeColor : Color.DarkSlateGray;
+                this.labelTimeComma.ForeColor = defaultTimeFormat ? this.labelTime.ForeColor : (face == ClockFace.TimeBlink ? Color.LightGray : Color.DarkSlateGray);
 
-                this.timerMain.Interval = 30 * 1000;
+                this.timerMain.Interval = face == ClockFace.TimeBlink ? 1000 : 30 * 1000;
+
             }
 
             this.labelTime.ForeColor = face == ClockFace.TimeWithSecondRed ? Color.DarkRed : this.ForeColor;
@@ -62,6 +63,7 @@ namespace BigClock
             switch (face)
             {
                 case ClockFace.Time:
+                case ClockFace.TimeBlink:
                 case ClockFace.TimeWithSecond:
                 case ClockFace.TimeWithSecondRed:
                     this.labelWeek.Text = null;
@@ -170,7 +172,7 @@ namespace BigClock
 
         private ClockFace GetCurrentClockFace()
         {
-            return (ClockFace)(this._SwapCount % 5);
+            return (ClockFace)(this._SwapCount % 6);
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
@@ -185,6 +187,7 @@ namespace BigClock
         TimeWeek,
 
         Time,
+        TimeBlink,
         TimeWithSecond,
         TimeWithSecondRed
     }
