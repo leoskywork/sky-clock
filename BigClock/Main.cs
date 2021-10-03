@@ -31,25 +31,49 @@ namespace BigClock
             // now = new DateTime(2021, 1, 2, 2, 3, 4);
             // now = new DateTime(2021, 10, 22, 12, 35, 47);
 
-            this.labelTime.Text = now.ToString("H mm");
+            if (face == ClockFace.TimeWithSecond)
+            {
+                this.labelTime.Text = now.ToString("H:mm:ss");
+                if (this.labelTime.Font.Size != 100f)
+                {
+                    this.labelTime.Font = new Font("SimSun", 100f, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
+                }
+                this.labelTimeComma.Hide();
 
-            this.labelTimeComma.Location = now.Hour < 10 ? new Point(100, 0) : new Point(180, 0);
-            this.labelTimeComma.ForeColor = defaultTimeFormat ? this.labelTime.ForeColor : Color.DarkSlateGray;
+                this.timerMain.Interval = 1000;
+            }
+            else
+            {
+                this.labelTime.Text = now.ToString("H mm");
+                if (this.labelTime.Font.Size != 120f)
+                {
+                    this.labelTime.Font = new Font("SimSun", 120F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
+                }
+                this.labelTimeComma.Show();
+                this.labelTimeComma.Location = now.Hour < 10 ? new Point(100, 0) : new Point(180, 0);
+                this.labelTimeComma.ForeColor = defaultTimeFormat ? this.labelTime.ForeColor : Color.DarkSlateGray;
+
+                this.timerMain.Interval = 30 * 1000;
+            }
 
             switch (face)
             {
                 case ClockFace.Time:
+                case ClockFace.TimeWithSecond:
                     this.labelWeek.Text = null;
                     this.labelDate.Text = null;
 
                     break;
+                    //this.labelWeek.Text = null;
+                    //this.labelDate.Text = null;
+
+                    //break;
                 case ClockFace.TimeWeek:
                     this.labelWeek.Text = now.DayOfWeek.ToString();
                     this.labelDate.Text = null;
 
                     break;
                 case ClockFace.TimeWeekDate:
-
                     this.labelWeek.Text = now.DayOfWeek.ToString();
                     this.labelDate.Text = now.ToString("yyyy.M.d");
 
@@ -142,7 +166,7 @@ namespace BigClock
 
         private ClockFace GetCurrentClockFace()
         {
-            return (ClockFace)(this._SwapCount % 3);
+            return (ClockFace)(this._SwapCount % 4);
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
@@ -153,8 +177,10 @@ namespace BigClock
 
     public enum ClockFace
     {
-        Time = 0,
+        TimeWeekDate,
         TimeWeek,
-        TimeWeekDate
+        Time,
+
+        TimeWithSecond
     }
 }

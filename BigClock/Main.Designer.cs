@@ -90,7 +90,7 @@
             // 
             // buttonSwap
             // 
-            this.buttonSwap.Location = new System.Drawing.Point(740, 12);
+            this.buttonSwap.Location = new System.Drawing.Point(750, 12);
             this.buttonSwap.Name = "buttonSwap";
             this.buttonSwap.Size = new System.Drawing.Size(60, 40);
             this.buttonSwap.TabIndex = 4;
