@@ -31,13 +31,14 @@ namespace BigClock
             // now = new DateTime(2021, 1, 2, 2, 3, 4);
             // now = new DateTime(2021, 10, 22, 12, 35, 47);
 
-            if (face == ClockFace.TimeWithSecond)
+            if (face == ClockFace.TimeWithSecond || face == ClockFace.TimeWithSecondRed)
             {
                 this.labelTime.Text = now.ToString("H:mm:ss");
                 if (this.labelTime.Font.Size != 100f)
                 {
                     this.labelTime.Font = new Font("SimSun", 100f, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
                 }
+
                 this.labelTimeComma.Hide();
 
                 this.timerMain.Interval = 1000;
@@ -56,10 +57,13 @@ namespace BigClock
                 this.timerMain.Interval = 30 * 1000;
             }
 
+            this.labelTime.ForeColor = face == ClockFace.TimeWithSecondRed ? Color.DarkRed : this.ForeColor;
+
             switch (face)
             {
                 case ClockFace.Time:
                 case ClockFace.TimeWithSecond:
+                case ClockFace.TimeWithSecondRed:
                     this.labelWeek.Text = null;
                     this.labelDate.Text = null;
 
@@ -166,7 +170,7 @@ namespace BigClock
 
         private ClockFace GetCurrentClockFace()
         {
-            return (ClockFace)(this._SwapCount % 4);
+            return (ClockFace)(this._SwapCount % 5);
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
@@ -179,8 +183,9 @@ namespace BigClock
     {
         TimeWeekDate,
         TimeWeek,
-        Time,
 
-        TimeWithSecond
+        Time,
+        TimeWithSecond,
+        TimeWithSecondRed
     }
 }
