@@ -17,14 +17,24 @@ namespace BigClock
         public Main()
         {
             InitializeComponent();
+
+            //for test
+            //this.timerMain.Interval = 5000;
+
             this.timerMain.Start();
             SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
         }
 
-        private void SetTime(bool defaultTimeFormat, ClockFace face)// bool miniMode = false)
+        private void SetTime(bool defaultTimeFormat, ClockFace face)
         {
             var now = DateTime.Now;
-            this.labelTime.Text = now.ToString(defaultTimeFormat ? "H:mm" : "H*mm"); //"H:mm tt" : "h mm tt");
+            // now = new DateTime(2021, 1, 2, 2, 3, 4);
+            // now = new DateTime(2021, 10, 22, 12, 35, 47);
+
+            this.labelTime.Text = now.ToString("H mm");
+
+            this.labelTimeComma.Location = now.Hour < 10 ? new Point(100, 0) : new Point(180, 0);
+            this.labelTimeComma.ForeColor = defaultTimeFormat ? this.labelTime.ForeColor : Color.DarkSlateGray;
 
             switch (face)
             {
@@ -42,7 +52,6 @@ namespace BigClock
 
                     this.labelWeek.Text = now.DayOfWeek.ToString();
                     this.labelDate.Text = now.ToString("yyyy.MM.dd");
-                    //this.labelDate.Text = "2028.22.22";
 
                     break;
                 default:
@@ -83,6 +92,34 @@ namespace BigClock
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
+
+        private void buttonSwap_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        private void labelTimeComma_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        private void buttonClose_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                //seems interrupt the click to close function, so disable this
+                // ReleaseCapture();
+                // SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
         //end of border-less
 
         private void buttonSwap_Click(object sender, EventArgs e)
@@ -95,6 +132,7 @@ namespace BigClock
         {
             return (ClockFace)(this._SwapCount % 3);
         }
+       
     }
 
     public enum ClockFace

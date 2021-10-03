@@ -36,6 +36,7 @@
             this.labelWeek = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonSwap = new System.Windows.Forms.Button();
+            this.labelTimeComma = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelTime
@@ -44,7 +45,7 @@
             this.labelTime.Font = new System.Drawing.Font("SimSun", 120F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelTime.Location = new System.Drawing.Point(0, 0);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(902, 228);
+            this.labelTime.Size = new System.Drawing.Size(930, 228);
             this.labelTime.TabIndex = 0;
             this.labelTime.Text = "time";
             this.labelTime.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelTime_MouseDown);
@@ -58,10 +59,10 @@
             // 
             this.labelDate.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.labelDate.Font = new System.Drawing.Font("SimSun", 90F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelDate.Location = new System.Drawing.Point(0, 433);
+            this.labelDate.Location = new System.Drawing.Point(0, 430);
             this.labelDate.Name = "labelDate";
-            this.labelDate.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.labelDate.Size = new System.Drawing.Size(902, 200);
+            this.labelDate.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.labelDate.Size = new System.Drawing.Size(930, 200);
             this.labelDate.TabIndex = 1;
             this.labelDate.Text = "date";
             // 
@@ -71,8 +72,8 @@
             this.labelWeek.Font = new System.Drawing.Font("SimSun", 90F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelWeek.Location = new System.Drawing.Point(0, 228);
             this.labelWeek.Name = "labelWeek";
-            this.labelWeek.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.labelWeek.Size = new System.Drawing.Size(902, 205);
+            this.labelWeek.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.labelWeek.Size = new System.Drawing.Size(930, 202);
             this.labelWeek.TabIndex = 2;
             this.labelWeek.Text = "week";
             // 
@@ -85,6 +86,7 @@
             this.buttonClose.Text = "Kill";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            this.buttonClose.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonClose_MouseDown);
             // 
             // buttonSwap
             // 
@@ -95,14 +97,29 @@
             this.buttonSwap.Text = "Mode";
             this.buttonSwap.UseVisualStyleBackColor = true;
             this.buttonSwap.Click += new System.EventHandler(this.buttonSwap_Click);
+            this.buttonSwap.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonSwap_MouseDown);
+            // 
+            // labelTimeComma
+            // 
+            this.labelTimeComma.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelTimeComma.Font = new System.Drawing.Font("SimSun", 90F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelTimeComma.Location = new System.Drawing.Point(207, 0);
+            this.labelTimeComma.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.labelTimeComma.Name = "labelTimeComma";
+            this.labelTimeComma.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.labelTimeComma.Size = new System.Drawing.Size(80, 178);
+            this.labelTimeComma.TabIndex = 5;
+            this.labelTimeComma.Text = ":";
+            this.labelTimeComma.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelTimeComma_MouseDown);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(902, 633);
+            this.ClientSize = new System.Drawing.Size(930, 630);
             this.ControlBox = false;
+            this.Controls.Add(this.labelTimeComma);
             this.Controls.Add(this.buttonSwap);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.labelWeek);
@@ -127,6 +144,7 @@
         private System.Windows.Forms.Label labelWeek;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Button buttonSwap;
+        private System.Windows.Forms.Label labelTimeComma;
     }
 }
 

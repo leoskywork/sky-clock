@@ -5,7 +5,8 @@ A win form program that show time and date with BIG and BOLD font, also with tra
 ## FAQ
 
 - how to move around?
-  - right click on a letter or a number then move your mouse
+  - left click on a number in the time string then hold and move your mouse
+  - left click on button 'Mode' then hold and move
 - is it re-sizable?
   - no
 - refresh rate is 30 second
