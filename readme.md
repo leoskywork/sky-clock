@@ -10,3 +10,5 @@ A win form program that show time and date with BIG and BOLD font, also with tra
 - is it re-sizable?
   - no
 - refresh rate is 30 second
+- how to change clock face?
+  - RIGHT click on the button 'Mode'

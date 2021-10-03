@@ -51,7 +51,7 @@ namespace BigClock
                 case ClockFace.TimeWeekDate:
 
                     this.labelWeek.Text = now.DayOfWeek.ToString();
-                    this.labelDate.Text = now.ToString("yyyy.MM.dd");
+                    this.labelDate.Text = now.ToString("yyyy.M.d");
 
                     break;
                 default:
@@ -100,6 +100,19 @@ namespace BigClock
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
+            else if(e.Button == MouseButtons.Right)
+            {
+                try
+                {
+                    this._SwapCount++;
+                    this.SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("There is an error: " + ex.ToString());
+                }
+            }
         }
 
         private void labelTimeComma_MouseDown(object sender, MouseEventArgs e)
@@ -124,16 +137,7 @@ namespace BigClock
 
         private void buttonSwap_Click(object sender, EventArgs e)
         {
-            try
-            {
-                this._SwapCount++;
-                this.SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("There is an error: " + ex.ToString());
-            }
+            //no longer working due to drag to move location function
         }
 
         private ClockFace GetCurrentClockFace()
