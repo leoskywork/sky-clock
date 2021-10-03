@@ -125,13 +125,16 @@
             this.Controls.Add(this.labelWeek);
             this.Controls.Add(this.labelDate);
             this.Controls.Add(this.labelTime);
+            this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::BigClock.Properties.Settings.Default, "LastCloseLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Location = global::BigClock.Properties.Settings.Default.LastCloseLocation;
             this.MaximizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LEO Time";
             this.TransparencyKey = System.Drawing.SystemColors.ControlLight;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.ResumeLayout(false);
 
         }

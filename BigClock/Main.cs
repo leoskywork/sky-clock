@@ -124,15 +124,27 @@ namespace BigClock
 
         private void buttonSwap_Click(object sender, EventArgs e)
         {
-            this._SwapCount++;
-            this.SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
+            try
+            {
+                this._SwapCount++;
+                this.SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is an error: " + ex.ToString());
+            }
         }
 
         private ClockFace GetCurrentClockFace()
         {
             return (ClockFace)(this._SwapCount % 3);
         }
-       
+
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
     }
 
     public enum ClockFace
