@@ -125,24 +125,16 @@ namespace BigClock
 
         private void buttonSwap_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-            else if(e.Button == MouseButtons.Right)
-            {
-                try
-                {
-                    this._SwapCount++;
-                    this.SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("There is an error: " + ex.ToString());
-                }
-            }
+            //seems interrupt the click to close function, so disable this
+            //if (e.Button == MouseButtons.Left)
+            //{
+            //    ReleaseCapture();
+            //    SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            //}
+            //else if(e.Button == MouseButtons.Right)
+            //{
+               
+            //}
         }
 
         private void labelTimeComma_MouseDown(object sender, MouseEventArgs e)
@@ -154,20 +146,20 @@ namespace BigClock
             }
         }
 
-        private void buttonClose_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                //seems interrupt the click to close function, so disable this
-                // ReleaseCapture();
-                // SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-        }
         //end of border-less
 
         private void buttonSwap_Click(object sender, EventArgs e)
         {
-            //no longer working due to drag to move location function
+            try
+            {
+                this._SwapCount++;
+                this.SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is an error: " + ex.ToString());
+            }
         }
 
         private ClockFace GetCurrentClockFace()

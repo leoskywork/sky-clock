@@ -86,7 +86,6 @@
             this.buttonClose.Text = "Kill";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-            this.buttonClose.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonClose_MouseDown);
             // 
             // buttonSwap
             // 
