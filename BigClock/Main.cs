@@ -13,7 +13,8 @@ namespace BigClock
     {
         private bool _UseDefaultTimeFormat = true;
         private int _SwapCount = (int)ClockFace.TimeWeekDate;
-        private const int _InitialTimerInterval = 100;
+        private const int _SyncClockTimerInterval = 100;
+        private const int _SyncClockOffsetAllowed = _SyncClockTimerInterval + 100;
         private const int _FastTimerInterval = 1000;
         private const int _SlowTimerInterval = 30 * 1000;
 
@@ -35,12 +36,12 @@ namespace BigClock
 
             //for test
             //this.timerMain.Interval = 5000;
-            this.timerMain.Interval = _InitialTimerInterval;
+            this.timerMain.Interval = _SyncClockTimerInterval;
             this.timerMain.Start();
-            SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
+            SetTime(_UseDefaultTimeFormat, GetCurrentClockFace(), true);
         }
 
-        private void SetTime(bool defaultTimeFormat, ClockFace face)
+        private void SetTime(bool defaultTimeFormat, ClockFace face, bool isSyncClock)
         {
             var now = DateTime.Now;
             // now = new DateTime(2021, 1, 2, 2, 3, 4);
@@ -57,7 +58,7 @@ namespace BigClock
 
                 this.labelTimeComma.Hide();
 
-                this.timerMain.Interval = _FastTimerInterval;
+                this.timerMain.Interval = isSyncClock ? _SyncClockTimerInterval : _FastTimerInterval;
             }
             else
             {
@@ -66,12 +67,12 @@ namespace BigClock
                 {
                     this.labelTime.Font = new Font("SimSun", 120F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
                 }
+
                 this.labelTimeComma.Show();
                 this.labelTimeComma.Location = now.Hour < 10 ? new Point(100, 0) : new Point(180, 0);
                 this.labelTimeComma.ForeColor = defaultTimeFormat ? this.labelTime.ForeColor : (face == ClockFace.TimeBlink ? Color.LightGray : Color.DarkSlateGray);
 
-                this.timerMain.Interval = face == ClockFace.TimeBlink ? _FastTimerInterval : _SlowTimerInterval;
-
+                this.timerMain.Interval = isSyncClock ? _SyncClockTimerInterval : (face == ClockFace.TimeBlink ? _FastTimerInterval : _SlowTimerInterval);
             }
 
             this.labelTime.ForeColor = face == ClockFace.TimeWithSecondRed ? Color.DarkRed : this.ForeColor;
@@ -107,7 +108,7 @@ namespace BigClock
         {
 
             _UseDefaultTimeFormat = !_UseDefaultTimeFormat;
-            SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
+            SetTime(_UseDefaultTimeFormat, GetCurrentClockFace(), DateTime.Now.Millisecond > _SyncClockOffsetAllowed);
 
             System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString("h:m:s.fff"));
         }
@@ -167,7 +168,7 @@ namespace BigClock
             {
                 this._SwapCount++;
                 Properties.Settings.Default.LastCloseMode = this._SwapCount;
-                this.SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
+                this.SetTime(_UseDefaultTimeFormat, GetCurrentClockFace(), false);
 
             }
             catch (Exception ex)
