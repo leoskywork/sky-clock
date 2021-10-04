@@ -44,7 +44,7 @@ namespace BigClock
         private void SetTime(bool defaultTimeFormat, ClockFace face, bool isSyncClock)
         {
             var now = DateTime.Now;
-            // now = new DateTime(2021, 1, 2, 2, 3, 4);
+            // now = new DateTime(2021, 1, 2, 9, 3, 4);
             // now = new DateTime(2021, 10, 22, 12, 35, 47);
 
             //1. update time label
@@ -69,7 +69,7 @@ namespace BigClock
                 }
 
                 this.labelTimeComma.Show();
-                this.labelTimeComma.Location = now.Hour < 10 ? new Point(100, 0) : new Point(180, 0);
+                this.labelTimeComma.Location = now.Hour < 10 ? new Point(100, 0) : new Point(182, 0);
                 this.labelTimeComma.ForeColor = defaultTimeFormat ? this.labelTime.ForeColor : (face == ClockFace.TimeBlink ? Color.LightGray : Color.DarkSlateGray);
 
                 this.timerMain.Interval = isSyncClock ? _SyncClockTimerInterval : (face == ClockFace.TimeBlink ? _FastTimerInterval : _SlowTimerInterval);
@@ -186,16 +186,61 @@ namespace BigClock
         {
             Properties.Settings.Default.Save();
         }
+
+  
+
+        private void buttonSwap_MouseEnter(object sender, EventArgs e)
+        {
+            HighlightButtonSwap();
+        }
+
+        private void buttonSwap_MouseHover(object sender, EventArgs e)
+        {
+            HighlightButtonSwap();
+        }
+
+        private void HighlightButtonSwap()
+        {
+            this.buttonSwap.BackColor = Color.Gray;
+            this.buttonSwap.ForeColor = Color.White;
+        }
+
+        private void buttonSwap_MouseLeave(object sender, EventArgs e)
+        {
+            this.buttonSwap.BackColor = Color.Transparent;
+            this.buttonSwap.ForeColor = this.ForeColor;
+        }
+
+        private void buttonClose_MouseHover(object sender, EventArgs e)
+        {
+            HighlightButtonClose();
+        }
+
+        private void buttonClose_MouseEnter(object sender, EventArgs e)
+        {
+            HighlightButtonClose();
+        }
+
+        private void HighlightButtonClose()
+        {
+            this.buttonClose.BackColor = Color.Red;
+            this.buttonClose.ForeColor = Color.White;
+        }
+
+        private void buttonClose_MouseLeave(object sender, EventArgs e)
+        {
+            this.buttonClose.BackColor = Color.Transparent;
+            this.buttonClose.ForeColor = this.ForeColor;
+        }
     }
 
     public enum ClockFace
     {
         TimeWeekDate,
         TimeWeek,
-
         Time,
-        TimeBlink,
         TimeWithSecond,
-        TimeWithSecondRed
+        TimeWithSecondRed,
+        TimeBlink,
     }
 }

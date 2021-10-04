@@ -37,6 +37,7 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonSwap = new System.Windows.Forms.Button();
             this.labelTimeComma = new System.Windows.Forms.Label();
+            this.buttonOutlinerHolder = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTime
@@ -72,44 +73,67 @@
             this.labelWeek.Font = new System.Drawing.Font("SimSun", 90F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelWeek.Location = new System.Drawing.Point(0, 228);
             this.labelWeek.Name = "labelWeek";
-            this.labelWeek.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.labelWeek.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.labelWeek.Size = new System.Drawing.Size(930, 202);
             this.labelWeek.TabIndex = 2;
             this.labelWeek.Text = "week";
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(834, 12);
+            this.buttonClose.BackColor = System.Drawing.Color.Transparent;
+            this.buttonClose.FlatAppearance.BorderSize = 0;
+            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonClose.Location = new System.Drawing.Point(821, 24);
+            this.buttonClose.Margin = new System.Windows.Forms.Padding(0);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(60, 40);
-            this.buttonClose.TabIndex = 3;
+            this.buttonClose.Size = new System.Drawing.Size(100, 40);
+            this.buttonClose.TabIndex = 100;
             this.buttonClose.Text = "Kill";
-            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.UseVisualStyleBackColor = false;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            this.buttonClose.MouseEnter += new System.EventHandler(this.buttonClose_MouseEnter);
+            this.buttonClose.MouseLeave += new System.EventHandler(this.buttonClose_MouseLeave);
+            this.buttonClose.MouseHover += new System.EventHandler(this.buttonClose_MouseHover);
             // 
             // buttonSwap
             // 
-            this.buttonSwap.Location = new System.Drawing.Point(756, 12);
+            this.buttonSwap.BackColor = System.Drawing.Color.Transparent;
+            this.buttonSwap.FlatAppearance.BorderSize = 0;
+            this.buttonSwap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSwap.Location = new System.Drawing.Point(821, 78);
+            this.buttonSwap.Margin = new System.Windows.Forms.Padding(0);
             this.buttonSwap.Name = "buttonSwap";
-            this.buttonSwap.Size = new System.Drawing.Size(60, 40);
-            this.buttonSwap.TabIndex = 4;
-            this.buttonSwap.Text = "Mode";
-            this.buttonSwap.UseVisualStyleBackColor = true;
+            this.buttonSwap.Size = new System.Drawing.Size(100, 40);
+            this.buttonSwap.TabIndex = 101;
+            this.buttonSwap.Text = "Switch";
+            this.buttonSwap.UseVisualStyleBackColor = false;
             this.buttonSwap.Click += new System.EventHandler(this.buttonSwap_Click);
             this.buttonSwap.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonSwap_MouseDown);
+            this.buttonSwap.MouseEnter += new System.EventHandler(this.buttonSwap_MouseEnter);
+            this.buttonSwap.MouseLeave += new System.EventHandler(this.buttonSwap_MouseLeave);
+            this.buttonSwap.MouseHover += new System.EventHandler(this.buttonSwap_MouseHover);
             // 
             // labelTimeComma
             // 
             this.labelTimeComma.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelTimeComma.Font = new System.Drawing.Font("SimSun", 90F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelTimeComma.Location = new System.Drawing.Point(207, 0);
+            this.labelTimeComma.Location = new System.Drawing.Point(210, 0);
             this.labelTimeComma.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelTimeComma.Name = "labelTimeComma";
             this.labelTimeComma.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.labelTimeComma.Size = new System.Drawing.Size(80, 178);
+            this.labelTimeComma.Size = new System.Drawing.Size(90, 178);
             this.labelTimeComma.TabIndex = 5;
             this.labelTimeComma.Text = ":";
             this.labelTimeComma.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelTimeComma_MouseDown);
+            // 
+            // buttonOutlinerHolder
+            // 
+            this.buttonOutlinerHolder.Location = new System.Drawing.Point(911, 267);
+            this.buttonOutlinerHolder.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonOutlinerHolder.Name = "buttonOutlinerHolder";
+            this.buttonOutlinerHolder.Size = new System.Drawing.Size(1, 1);
+            this.buttonOutlinerHolder.TabIndex = 10;
+            this.buttonOutlinerHolder.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
@@ -118,6 +142,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(930, 630);
             this.ControlBox = false;
+            this.Controls.Add(this.buttonOutlinerHolder);
             this.Controls.Add(this.labelTimeComma);
             this.Controls.Add(this.buttonSwap);
             this.Controls.Add(this.buttonClose);
@@ -147,6 +172,7 @@
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Button buttonSwap;
         private System.Windows.Forms.Label labelTimeComma;
+        private System.Windows.Forms.Button buttonOutlinerHolder;
     }
 }
 
