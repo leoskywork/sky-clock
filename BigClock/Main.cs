@@ -201,7 +201,7 @@ namespace BigClock
 
         private void HighlightButtonSwap()
         {
-            this.buttonSwap.BackColor = Color.Gray;
+            this.buttonSwap.BackColor = Color.SlateBlue;
             this.buttonSwap.ForeColor = Color.White;
         }
 

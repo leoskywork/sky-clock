@@ -105,7 +105,7 @@
             this.buttonSwap.Name = "buttonSwap";
             this.buttonSwap.Size = new System.Drawing.Size(100, 40);
             this.buttonSwap.TabIndex = 101;
-            this.buttonSwap.Text = "Switch";
+            this.buttonSwap.Text = "Change";
             this.buttonSwap.UseVisualStyleBackColor = false;
             this.buttonSwap.Click += new System.EventHandler(this.buttonSwap_Click);
             this.buttonSwap.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonSwap_MouseDown);
