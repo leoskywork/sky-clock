@@ -13,14 +13,29 @@ namespace BigClock
     {
         private bool _UseDefaultTimeFormat = true;
         private int _SwapCount = (int)ClockFace.TimeWeekDate;
+        private const int _InitialTimerInterval = 100;
+        private const int _FastTimerInterval = 1000;
+        private const int _SlowTimerInterval = 30 * 1000;
 
         public Main()
         {
             InitializeComponent();
 
+            //can't do the auto 2 way binding like this.Location, due to this.Tag is not marked with [SettingsBindable]
+            //have to manually read and save to global settings
+            //int lastMode;
+            //if (this.Tag != null && int.TryParse(this.Tag.ToString(), out lastMode) && lastMode >= 0)
+            //{
+            //    this._SwapCount = lastMode;
+            //}
+            if(Properties.Settings.Default.LastCloseMode >= 0)
+            {
+                this._SwapCount = Properties.Settings.Default.LastCloseMode;
+            }
+
             //for test
             //this.timerMain.Interval = 5000;
-
+            this.timerMain.Interval = _InitialTimerInterval;
             this.timerMain.Start();
             SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
         }
@@ -31,6 +46,7 @@ namespace BigClock
             // now = new DateTime(2021, 1, 2, 2, 3, 4);
             // now = new DateTime(2021, 10, 22, 12, 35, 47);
 
+            //1. update time label
             if (face == ClockFace.TimeWithSecond || face == ClockFace.TimeWithSecondRed)
             {
                 this.labelTime.Text = now.ToString("H:mm:ss");
@@ -41,7 +57,7 @@ namespace BigClock
 
                 this.labelTimeComma.Hide();
 
-                this.timerMain.Interval = 1000;
+                this.timerMain.Interval = _FastTimerInterval;
             }
             else
             {
@@ -54,12 +70,13 @@ namespace BigClock
                 this.labelTimeComma.Location = now.Hour < 10 ? new Point(100, 0) : new Point(180, 0);
                 this.labelTimeComma.ForeColor = defaultTimeFormat ? this.labelTime.ForeColor : (face == ClockFace.TimeBlink ? Color.LightGray : Color.DarkSlateGray);
 
-                this.timerMain.Interval = face == ClockFace.TimeBlink ? 1000 : 30 * 1000;
+                this.timerMain.Interval = face == ClockFace.TimeBlink ? _FastTimerInterval : _SlowTimerInterval;
 
             }
 
             this.labelTime.ForeColor = face == ClockFace.TimeWithSecondRed ? Color.DarkRed : this.ForeColor;
 
+            //2. then update week label and date label
             switch (face)
             {
                 case ClockFace.Time:
@@ -70,10 +87,6 @@ namespace BigClock
                     this.labelDate.Text = null;
 
                     break;
-                    //this.labelWeek.Text = null;
-                    //this.labelDate.Text = null;
-
-                    //break;
                 case ClockFace.TimeWeek:
                     this.labelWeek.Text = now.DayOfWeek.ToString();
                     this.labelDate.Text = null;
@@ -153,6 +166,7 @@ namespace BigClock
             try
             {
                 this._SwapCount++;
+                Properties.Settings.Default.LastCloseMode = this._SwapCount;
                 this.SetTime(_UseDefaultTimeFormat, GetCurrentClockFace());
 
             }
