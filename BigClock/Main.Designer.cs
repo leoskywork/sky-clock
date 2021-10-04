@@ -156,7 +156,7 @@
             this.MaximizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LEO Time";
+            this.Text = "LEO Clock";
             this.TransparencyKey = System.Drawing.SystemColors.ControlLight;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.ResumeLayout(false);

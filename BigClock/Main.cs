@@ -11,7 +11,7 @@ namespace BigClock
 {
     public partial class Main : Form
     {
-        private bool _UseDefaultTimeFormat = true;
+        private bool _UseDefaultTimeCommaColor = true;
         private int _SwapCount = (int)ClockFace.TimeWeekDate;
         private const int _SyncClockTimerInterval = 100;
         private const int _SyncClockOffsetAllowed = _SyncClockTimerInterval + 100;
@@ -38,10 +38,10 @@ namespace BigClock
             //this.timerMain.Interval = 5000;
             this.timerMain.Interval = _SyncClockTimerInterval;
             this.timerMain.Start();
-            SetTime(_UseDefaultTimeFormat, GetCurrentClockFace(), true);
+            SetTime(_UseDefaultTimeCommaColor, GetCurrentClockFace(), true);
         }
 
-        private void SetTime(bool defaultTimeFormat, ClockFace face, bool isSyncClock)
+        private void SetTime(bool defaultCommaColor, ClockFace face, bool isSyncClock)
         {
             var now = DateTime.Now;
             // now = new DateTime(2021, 1, 2, 9, 3, 4);
@@ -70,7 +70,7 @@ namespace BigClock
 
                 this.labelTimeComma.Show();
                 this.labelTimeComma.Location = now.Hour < 10 ? new Point(100, 0) : new Point(182, 0);
-                this.labelTimeComma.ForeColor = defaultTimeFormat ? this.labelTime.ForeColor : (face == ClockFace.TimeBlink ? Color.LightGray : Color.DarkSlateGray);
+                this.labelTimeComma.ForeColor = defaultCommaColor ? this.labelTime.ForeColor : (face == ClockFace.TimeBlink ? Color.LightGray : Color.DarkSlateGray);
 
                 this.timerMain.Interval = isSyncClock ? _SyncClockTimerInterval : (face == ClockFace.TimeBlink ? _FastTimerInterval : _SlowTimerInterval);
             }
@@ -107,8 +107,8 @@ namespace BigClock
         private void timerMain_Tick(object sender, EventArgs e)
         {
 
-            _UseDefaultTimeFormat = !_UseDefaultTimeFormat;
-            SetTime(_UseDefaultTimeFormat, GetCurrentClockFace(), DateTime.Now.Millisecond > _SyncClockOffsetAllowed);
+            _UseDefaultTimeCommaColor = DateTime.Now.Second < 30;
+            SetTime(_UseDefaultTimeCommaColor, GetCurrentClockFace(), DateTime.Now.Millisecond > _SyncClockOffsetAllowed);
 
             System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString("h:m:s.fff"));
         }
@@ -168,7 +168,7 @@ namespace BigClock
             {
                 this._SwapCount++;
                 Properties.Settings.Default.LastCloseMode = this._SwapCount;
-                this.SetTime(_UseDefaultTimeFormat, GetCurrentClockFace(), false);
+                this.SetTime(_UseDefaultTimeCommaColor, GetCurrentClockFace(), false);
 
             }
             catch (Exception ex)
