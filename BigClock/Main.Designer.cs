@@ -38,6 +38,7 @@
             this.buttonSwap = new System.Windows.Forms.Button();
             this.labelTimeComma = new System.Windows.Forms.Label();
             this.buttonOutlinerHolder = new System.Windows.Forms.Button();
+            this.timerFading = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // labelTime
@@ -50,6 +51,8 @@
             this.labelTime.TabIndex = 0;
             this.labelTime.Text = "time";
             this.labelTime.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelTime_MouseDown);
+            this.labelTime.MouseEnter += new System.EventHandler(this.labelTime_MouseEnter);
+            this.labelTime.MouseLeave += new System.EventHandler(this.labelTime_MouseLeave);
             // 
             // timerMain
             // 
@@ -83,7 +86,8 @@
             this.buttonClose.BackColor = System.Drawing.Color.Transparent;
             this.buttonClose.FlatAppearance.BorderSize = 0;
             this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonClose.Location = new System.Drawing.Point(821, 24);
+            this.buttonClose.Font = new System.Drawing.Font("SimSun", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonClose.Location = new System.Drawing.Point(780, 24);
             this.buttonClose.Margin = new System.Windows.Forms.Padding(0);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(100, 40);
@@ -100,7 +104,8 @@
             this.buttonSwap.BackColor = System.Drawing.Color.Transparent;
             this.buttonSwap.FlatAppearance.BorderSize = 0;
             this.buttonSwap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSwap.Location = new System.Drawing.Point(821, 78);
+            this.buttonSwap.Font = new System.Drawing.Font("SimSun", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonSwap.Location = new System.Drawing.Point(780, 78);
             this.buttonSwap.Margin = new System.Windows.Forms.Padding(0);
             this.buttonSwap.Name = "buttonSwap";
             this.buttonSwap.Size = new System.Drawing.Size(100, 40);
@@ -125,6 +130,8 @@
             this.labelTimeComma.TabIndex = 5;
             this.labelTimeComma.Text = ":";
             this.labelTimeComma.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelTimeComma_MouseDown);
+            this.labelTimeComma.MouseEnter += new System.EventHandler(this.labelTimeComma_MouseEnter);
+            this.labelTimeComma.MouseLeave += new System.EventHandler(this.labelTimeComma_MouseLeave);
             // 
             // buttonOutlinerHolder
             // 
@@ -134,6 +141,11 @@
             this.buttonOutlinerHolder.Size = new System.Drawing.Size(1, 1);
             this.buttonOutlinerHolder.TabIndex = 10;
             this.buttonOutlinerHolder.UseVisualStyleBackColor = true;
+            // 
+            // timerFading
+            // 
+            this.timerFading.Interval = 10000;
+            this.timerFading.Tick += new System.EventHandler(this.timerFading_Tick);
             // 
             // Main
             // 
@@ -159,6 +171,7 @@
             this.Text = "LEO Clock";
             this.TransparencyKey = System.Drawing.SystemColors.ControlLight;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
+            this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);
 
         }
@@ -173,6 +186,7 @@
         private System.Windows.Forms.Button buttonSwap;
         private System.Windows.Forms.Label labelTimeComma;
         private System.Windows.Forms.Button buttonOutlinerHolder;
+        private System.Windows.Forms.Timer timerFading;
     }
 }
 
