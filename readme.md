@@ -8,6 +8,6 @@ A win form program that show time and date with BIG and BOLD font, also with tra
   - left click on a number in the time string then hold and move your mouse
 - is it re-sizable?
   - no
-- refresh rate is 30 second
-- how to change clock face?
-  - click on the button 'Mode'
+- how to change or close clock face?
+  - hover on the time text to make the buttons appear
+  - then click on correspond buttons
