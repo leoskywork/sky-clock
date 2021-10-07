@@ -15,6 +15,7 @@ namespace BigClock
     {
         private bool _UseDefaultTimeCommaColor = true;
         private int _SwapCount = (int)ClockFace.TimeWeekDate;
+        private int _NumberOfClockFaces = 1;
         private bool _HasMouseEnteredButton = false;
         private DateTime _MouseLeaveTimestamp = DateTime.MinValue;
         private List<CancellationTokenSource> _CancelTokens = new List<CancellationTokenSource>();
@@ -39,9 +40,9 @@ namespace BigClock
             //}
             if (Properties.Settings.Default.LastCloseMode >= 0)
             {
-                this._SwapCount = Properties.Settings.Default.LastCloseMode;
+                _SwapCount = Properties.Settings.Default.LastCloseMode;
             }
-
+            _NumberOfClockFaces = Enum.GetNames(typeof(ClockFace)).Length;
             //for test
             //this.timerMain.Interval = 5000;
             this.timerMain.Interval = _SyncClockTimerInterval;
@@ -59,60 +60,123 @@ namespace BigClock
             // now = new DateTime(2021, 10, 22, 12, 35, 47);
 
             //1. update time label
-            if (face == ClockFace.TimeWithSecond || face == ClockFace.TimeWithSecondRed)
-            {
-                this.labelTime.Text = now.ToString("H:mm:ss");
-                if (this.labelTime.Font.Size != 100f)
-                {
-                    this.labelTime.Font = new Font("SimSun", 100f, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
-                }
-
-                this.labelTimeComma.Hide();
-
-                this.timerMain.Interval = isSyncClock ? _SyncClockTimerInterval : _FastTimerInterval;
-            }
-            else
-            {
-                this.labelTime.Text = now.ToString("H mm");
-                if (this.labelTime.Font.Size != 120f)
-                {
-                    this.labelTime.Font = new Font("SimSun", 120F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
-                }
-
-                this.labelTimeComma.Show();
-                this.labelTimeComma.Location = now.Hour < 10 ? new Point(100, 0) : new Point(182, 0);
-                this.labelTimeComma.ForeColor = defaultCommaColor ? this.labelTime.ForeColor : (face == ClockFace.TimeBlink ? Color.LightGray : Color.DarkSlateGray);
-
-                this.timerMain.Interval = isSyncClock ? _SyncClockTimerInterval : (face == ClockFace.TimeBlink ? _FastTimerInterval : _SlowTimerInterval);
-            }
-
-            this.labelTime.ForeColor = face == ClockFace.TimeWithSecondRed ? Color.DarkRed : this.ForeColor;
-
-            //2. then update week label and date label
             switch (face)
             {
                 case ClockFace.Time:
                 case ClockFace.TimeBlink:
+                case ClockFace.TimeWeek:
+                case ClockFace.TimeDate:
+                case ClockFace.TimeWeekDate:
+                case ClockFace.TimeWeekDateWhite:
+                    this.labelTime.Text = now.ToString("H mm");
+                    this.labelTime.Font = new Font("SimSun", 120f, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
+                    this.labelTime.ForeColor = face == ClockFace.TimeWeekDateWhite ? Color.White : this.ForeColor;
+
+                    this.labelTimeComma.Location = now.Hour < 10 ? new Point(100, 0) : new Point(182, 0);
+                    //(face == ClockFace.TimeBlink ? Color.LightGray : Color.DarkSlateGray);
+                    this.labelTimeComma.ForeColor = face == ClockFace.TimeBlink && !defaultCommaColor ? Color.LightGray : this.labelTime.ForeColor;
+                    this.labelTimeComma.Show();
+                    this.TopMost = false;
+                    break;
                 case ClockFace.TimeWithSecond:
                 case ClockFace.TimeWithSecondRed:
-                    this.labelWeek.Text = null;
-                    this.labelDate.Text = null;
+                    this.labelTime.Text = now.ToString("H:mm:ss");
+                    if (this.labelTime.Font.Size != 100f) //high refresh rate, so do the check before reset
+                    {
+                        this.labelTime.Font = new Font("SimSun", 100f, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
+                    }
+                    this.labelTime.ForeColor = face == ClockFace.TimeWithSecondRed ? Color.DarkRed : this.ForeColor;
 
+                    this.labelTimeComma.Hide();
+                    this.TopMost = false;
                     break;
-                case ClockFace.TimeWeek:
-                    this.labelWeek.Text = now.DayOfWeek.ToString();
-                    this.labelDate.Text = null;
+                case ClockFace.TimeSmallTopMost:
+                case ClockFace.TimeSmallTopMostWhite:
+                    this.labelTime.Text = now.ToString("H:mm");
+                    this.labelTime.Font = new Font("SimSun", 20f, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
+                    this.labelTime.ForeColor = face == ClockFace.TimeSmallTopMostWhite ? Color.LightGray : this.ForeColor;
 
-                    break;
-                case ClockFace.TimeWeekDate:
-                    this.labelWeek.Text = now.DayOfWeek.ToString();
-                    this.labelDate.Text = now.ToString("yyyy.M.d");
-
+                    this.labelTimeComma.Hide();
+                    this.TopMost = true;
                     break;
                 default:
                     MessageBox.Show("Unsupported clock face: " + face.ToString());
                     break;
             }
+
+            //2. set refresh rate
+            if (isSyncClock)
+            {
+                if (this.timerMain.Interval != _SyncClockTimerInterval)
+                {
+                    this.timerMain.Interval = _SyncClockTimerInterval;
+                }
+            }
+            else
+            {
+                switch (face)
+                {
+                    case ClockFace.TimeBlink:
+                    case ClockFace.TimeWithSecond:
+                    case ClockFace.TimeWithSecondRed:
+                        this.timerMain.Interval = _FastTimerInterval;
+                        break;
+                    default:
+                        this.timerMain.Interval = _SlowTimerInterval;
+                        break;
+                }
+            }
+
+            //3. then update week label and date label
+            switch (face)
+            {
+                case ClockFace.TimeWeek:
+                    this.labelWeek.Text = now.DayOfWeek.ToString();
+                    this.labelWeek.ForeColor = this.labelTime.ForeColor;
+                    this.labelDate.Text = null;
+                    break;
+                case ClockFace.TimeDate:
+                    this.labelWeek.Text = now.ToString("yyyy.M.d");
+                    this.labelWeek.ForeColor = this.labelTime.ForeColor;
+                    this.labelDate.Text = null;
+                    break;
+                case ClockFace.TimeWeekDate:
+                case ClockFace.TimeWeekDateWhite:
+                    this.labelWeek.Text = now.DayOfWeek.ToString();
+                    this.labelWeek.ForeColor = this.labelTime.ForeColor;
+                    this.labelDate.Text = now.ToString("yyyy.M.d");
+                    this.labelDate.ForeColor = this.labelTime.ForeColor;
+                    break;
+                default:
+                    this.labelWeek.Text = null;
+                    this.labelDate.Text = null;
+                    break;
+            }
+
+            //4. set buttons location
+            int locationX = 450;
+            int locationY = 24;
+            switch (face)
+            {
+                case ClockFace.TimeWithSecond:
+                case ClockFace.TimeWithSecondRed:
+                    locationX = 580;
+                    break;
+                case ClockFace.TimeSmallTopMostWhite:
+                case ClockFace.TimeSmallTopMost:
+                    locationX = 10;
+                    locationY = 34;
+                    break;
+                default:
+                    break;
+            }
+
+            if (this.buttonClose.Location.X != locationX || this.buttonClose.Location.Y != locationY)
+            {
+                this.buttonClose.Location = new System.Drawing.Point(locationX, locationY);
+                this.buttonSwap.Location = new System.Drawing.Point(locationX, locationY + 40);
+            }
+
         }
 
         private void timerMain_Tick(object sender, EventArgs e)
@@ -195,7 +259,7 @@ namespace BigClock
 
         private ClockFace GetCurrentClockFace()
         {
-            return (ClockFace)(this._SwapCount % 6);
+            return (ClockFace)(_SwapCount % _NumberOfClockFaces);
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
@@ -431,11 +495,17 @@ namespace BigClock
     public enum ClockFace
     {
         TimeWeekDate,
+        TimeWeekDateWhite,
         TimeWeek,
+        TimeDate,
         Time,
+
         TimeWithSecond,
         TimeWithSecondRed,
         TimeBlink,
+
+        TimeSmallTopMostWhite,
+        TimeSmallTopMost,
     }
 
 
