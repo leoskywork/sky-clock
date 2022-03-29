@@ -23,7 +23,7 @@ namespace BigClock
         private const int _SyncClockTimerInterval = 100;
         private const int _SyncClockOffsetAllowed = _SyncClockTimerInterval + 100;
         private const int _FastTimerInterval = 1000;
-        private const int _SlowTimerInterval = 30 * 1000;
+        private const int _SlowTimerInterval = 5 * 1000;
         private const int _ColorFadingDelay = 10 * 1000;
         private const int _ColorEmptyDelay = 1000;
 
