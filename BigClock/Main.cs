@@ -46,22 +46,21 @@ namespace BigClock
             {
                 _SwapCount = Properties.Settings.Default.LastCloseMode;
             }
-
-            _TopMost = Properties.Settings.Default.TopMost;
-            this.buttonTopMost.Text = _TopMost ? UITopMost : UITopMostOff;
+          
+            SetUITopMostFromSettings();
 
             _NumberOfClockFaces = Enum.GetNames(typeof(ClockFace)).Length;
             //for test
             //this.timerMain.Interval = 5000;
             this.timerMain.Interval = _SyncClockTimerInterval;
             this.timerMain.Start();
-            SetTime(_UseDefaultTimeCommaColor, GetCurrentClockFace(), true);
+            SetUIClock(_UseDefaultTimeCommaColor, GetCurrentClockFace(), true);
 
             this.timerFading.Interval = _ColorFadingDelay / 2;
             this.timerFading.Start();
         }
 
-        private void SetTime(bool defaultCommaColor, ClockFace face, bool isSyncClock)
+        private void SetUIClock(bool defaultCommaColor, ClockFace face, bool isSyncClock)
         {
             var now = DateTime.Now;
             // now = new DateTime(2021, 1, 2, 9, 3, 4);
@@ -75,16 +74,13 @@ namespace BigClock
                 case ClockFace.TimeWeek:
                 case ClockFace.TimeDate:
                 case ClockFace.TimeWeekDate:
+                case ClockFace.TimeWhite:
+                case ClockFace.TimeBlinkWhite:
+                case ClockFace.TimeWeekWhite:
+                case ClockFace.TimeDateWhite:
                 case ClockFace.TimeWeekDateWhite:
-                    this.labelTime.Text = now.ToString("H mm");
-                    this.labelTime.Font = new Font("SimSun", 120f, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
-                    this.labelTime.ForeColor = face == ClockFace.TimeWeekDateWhite ? Color.White : this.ForeColor;
-
-                    this.labelTimeComma.Location = now.Hour < 10 ? new Point(100, 0) : new Point(182, 0);
-                    //(face == ClockFace.TimeBlink ? Color.LightGray : Color.DarkSlateGray);
-                    this.labelTimeComma.ForeColor = face == ClockFace.TimeBlink && !defaultCommaColor ? Color.LightGray : this.labelTime.ForeColor;
-                    this.labelTimeComma.Show();
-                    //this.TopMost = false;
+                    SetUIBigLabelTime(face, now);
+                    SetUIBigLabelCommaBlink(defaultCommaColor, face, now);
                     break;
                 case ClockFace.TimeWithSecond:
                 case ClockFace.TimeWithSecondRed:
@@ -96,7 +92,6 @@ namespace BigClock
                     this.labelTime.ForeColor = face == ClockFace.TimeWithSecondRed ? Color.DarkRed : this.ForeColor;
 
                     this.labelTimeComma.Hide();
-                    //this.TopMost = false;
                     break;
                 case ClockFace.TimeSmallTopMost:
                 case ClockFace.TimeSmallTopMostWhite:
@@ -105,7 +100,6 @@ namespace BigClock
                     this.labelTime.ForeColor = face == ClockFace.TimeSmallTopMostWhite ? Color.LightGray : this.ForeColor;
 
                     this.labelTimeComma.Hide();
-                    //this.TopMost = true; //23-03-13, use a button to control this now
                     break;
                 default:
                     MessageBox.Show("Unsupported clock face: " + face.ToString());
@@ -125,6 +119,7 @@ namespace BigClock
                 switch (face)
                 {
                     case ClockFace.TimeBlink:
+                    case ClockFace.TimeBlinkWhite:
                     case ClockFace.TimeWithSecond:
                     case ClockFace.TimeWithSecondRed:
                         this.timerMain.Interval = _FastTimerInterval;
@@ -139,11 +134,13 @@ namespace BigClock
             switch (face)
             {
                 case ClockFace.TimeWeek:
+                case ClockFace.TimeWeekWhite:
                     this.labelWeek.Text = now.DayOfWeek.ToString();
                     this.labelWeek.ForeColor = this.labelTime.ForeColor;
                     this.labelDate.Text = null;
                     break;
                 case ClockFace.TimeDate:
+                case ClockFace.TimeDateWhite:
                     this.labelWeek.Text = now.ToString("yyyy.M.d");
                     this.labelWeek.ForeColor = this.labelTime.ForeColor;
                     this.labelDate.Text = null;
@@ -163,7 +160,46 @@ namespace BigClock
 
             //4. set buttons location
             AdjustButtonLocations(face);
+        }
 
+        private void SetUIBigLabelCommaBlink(bool defaultCommaColor, ClockFace face, DateTime now)
+        {
+            this.labelTimeComma.Location = now.Hour < 10 ? new Point(100, 0) : new Point(182, 0);
+
+            if (face == ClockFace.TimeBlink && !defaultCommaColor)
+            {
+                this.labelTimeComma.ForeColor = Color.LightGray;
+            }
+            else if (face == ClockFace.TimeBlinkWhite && !defaultCommaColor)
+            {
+                this.labelTimeComma.ForeColor = Color.Gray;
+            }
+            else
+            {
+                this.labelTimeComma.ForeColor = this.labelTime.ForeColor;
+            }
+
+            this.labelTimeComma.Show();
+        }
+
+        private void SetUIBigLabelTime(ClockFace face, DateTime now)
+        {
+            this.labelTime.Text = now.ToString("H mm");
+            this.labelTime.Font = new Font("SimSun", 120f, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
+
+            switch (face)
+            {
+                case ClockFace.TimeWhite:
+                case ClockFace.TimeBlinkWhite:
+                case ClockFace.TimeWeekWhite:
+                case ClockFace.TimeDateWhite:
+                case ClockFace.TimeWeekDateWhite:
+                    this.labelTime.ForeColor = Color.White;
+                    break;
+                default:
+                    this.labelTime.ForeColor = this.ForeColor;
+                    break;
+            }
         }
 
         private void AdjustButtonLocations(ClockFace face)
@@ -197,7 +233,7 @@ namespace BigClock
         {
 
             _UseDefaultTimeCommaColor = !_UseDefaultTimeCommaColor;
-            SetTime(_UseDefaultTimeCommaColor, GetCurrentClockFace(), DateTime.Now.Millisecond > _SyncClockOffsetAllowed);
+            SetUIClock(_UseDefaultTimeCommaColor, GetCurrentClockFace(), DateTime.Now.Millisecond > _SyncClockOffsetAllowed);
 
             System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString("h:mm:ss.fff"));
         }
@@ -262,7 +298,7 @@ namespace BigClock
             {
                 this._SwapCount++;
                 Properties.Settings.Default.LastCloseMode = this._SwapCount;
-                this.SetTime(_UseDefaultTimeCommaColor, GetCurrentClockFace(), false);
+                this.SetUIClock(_UseDefaultTimeCommaColor, GetCurrentClockFace(), false);
 
             }
             catch (Exception ex)
@@ -493,14 +529,20 @@ namespace BigClock
             try
             {
                 this._TopMost = !this._TopMost;
-                this.TopMost = _TopMost;
-                this.buttonTopMost.Text = this._TopMost ? UITopMost : UITopMostOff;
                 Properties.Settings.Default.TopMost = this._TopMost;
+                SetUITopMostFromSettings();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("There is an error: " + ex.ToString());
             }
+        }
+
+        private void SetUITopMostFromSettings()
+        {
+            _TopMost = Properties.Settings.Default.TopMost;
+            this.TopMost = _TopMost;
+            this.buttonTopMost.Text = this._TopMost ? UITopMost : UITopMostOff;
         }
 
         private void buttonTopMost_MouseHover(object sender, EventArgs e)
@@ -524,18 +566,26 @@ namespace BigClock
 
     public enum ClockFace
     {
+        Time,
+        TimeWhite,
+
+        TimeWeek,
+        TimeWeekWhite,
+
+        TimeDate,
+        TimeDateWhite,
+
         TimeWeekDate,
         TimeWeekDateWhite,
-        TimeWeek,
-        TimeDate,
-        Time,
+
+        TimeBlink,
+        TimeBlinkWhite,
 
         TimeWithSecond,
         TimeWithSecondRed,
-        TimeBlink,
 
-        TimeSmallTopMostWhite,
         TimeSmallTopMost,
+        TimeSmallTopMostWhite,
     }
 
 
