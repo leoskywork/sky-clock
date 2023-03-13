@@ -15,6 +15,7 @@ namespace BigClock
     {
         private bool _UseDefaultTimeCommaColor = true;
         private int _SwapCount = (int)ClockFace.TimeWeekDate;
+        private bool _TopMost = false;
         private int _NumberOfClockFaces = 1;
         private bool _HasMouseEnteredButton = false;
         private DateTime _MouseLeaveTimestamp = DateTime.MinValue;
@@ -26,6 +27,9 @@ namespace BigClock
         private const int _SlowTimerInterval = 5 * 1000;
         private const int _ColorFadingDelay = 10 * 1000;
         private const int _ColorEmptyDelay = 1000;
+
+        public const string UITopMost = "Pin On";
+        public const string UITopMostOff = "Pin Off";
 
         public Main()
         {
@@ -42,6 +46,10 @@ namespace BigClock
             {
                 _SwapCount = Properties.Settings.Default.LastCloseMode;
             }
+
+            _TopMost = Properties.Settings.Default.TopMost;
+            this.buttonTopMost.Text = _TopMost ? UITopMost : UITopMostOff;
+
             _NumberOfClockFaces = Enum.GetNames(typeof(ClockFace)).Length;
             //for test
             //this.timerMain.Interval = 5000;
@@ -76,7 +84,7 @@ namespace BigClock
                     //(face == ClockFace.TimeBlink ? Color.LightGray : Color.DarkSlateGray);
                     this.labelTimeComma.ForeColor = face == ClockFace.TimeBlink && !defaultCommaColor ? Color.LightGray : this.labelTime.ForeColor;
                     this.labelTimeComma.Show();
-                    this.TopMost = false;
+                    //this.TopMost = false;
                     break;
                 case ClockFace.TimeWithSecond:
                 case ClockFace.TimeWithSecondRed:
@@ -88,7 +96,7 @@ namespace BigClock
                     this.labelTime.ForeColor = face == ClockFace.TimeWithSecondRed ? Color.DarkRed : this.ForeColor;
 
                     this.labelTimeComma.Hide();
-                    this.TopMost = false;
+                    //this.TopMost = false;
                     break;
                 case ClockFace.TimeSmallTopMost:
                 case ClockFace.TimeSmallTopMostWhite:
@@ -97,7 +105,7 @@ namespace BigClock
                     this.labelTime.ForeColor = face == ClockFace.TimeSmallTopMostWhite ? Color.LightGray : this.ForeColor;
 
                     this.labelTimeComma.Hide();
-                    this.TopMost = true;
+                    //this.TopMost = true; //23-03-13, use a button to control this now
                     break;
                 default:
                     MessageBox.Show("Unsupported clock face: " + face.ToString());
@@ -154,6 +162,12 @@ namespace BigClock
             }
 
             //4. set buttons location
+            AdjustButtonLocations(face);
+
+        }
+
+        private void AdjustButtonLocations(ClockFace face)
+        {
             int locationX = 450;
             int locationY = 24;
             switch (face)
@@ -175,8 +189,8 @@ namespace BigClock
             {
                 this.buttonClose.Location = new System.Drawing.Point(locationX, locationY);
                 this.buttonSwap.Location = new System.Drawing.Point(locationX, locationY + 40);
+                this.buttonTopMost.Location = new System.Drawing.Point(locationX, locationY + 80);
             }
-
         }
 
         private void timerMain_Tick(object sender, EventArgs e)
@@ -190,7 +204,7 @@ namespace BigClock
 
         private void Main_Load(object sender, EventArgs e)
         {
-            DimThenOffMultipleAsync(this.buttonClose, this.buttonSwap);
+            DimThenOffInitialAsync(this.buttonClose, this.buttonSwap, this.buttonTopMost);
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -268,53 +282,33 @@ namespace BigClock
             Properties.Settings.Default.Save();
         }
 
-
-        private void HighlightButtonSwap()
+        private static void HighlightButton(Button button, Color backColor)
         {
-            this.buttonSwap.BackColor = Color.SlateBlue;
-            this.buttonSwap.ForeColor = Color.White;
+            button.BackColor = backColor;
+            button.ForeColor = Color.White;
         }
 
-        private void HighlightButtonClose()
+        private bool NormallightButton(Button button)
         {
-            this.buttonClose.BackColor = Color.Red;
-            this.buttonClose.ForeColor = Color.White;
+            return NormallightButton(button, this.ForeColor);
         }
-
-        private bool NormallightButtonSwap()
+        private static bool NormallightButton(Button button, Color foreColor)
         {
-            if (!this.buttonSwap.Visible)
+            if (!button.Visible)
             {
-                this.buttonSwap.Show();
+                button.Show();
             }
 
-            if (this.buttonSwap.ForeColor != this.ForeColor)
+            if (button.ForeColor != foreColor)
             {
-                this.buttonSwap.BackColor = Color.Transparent;
-                this.buttonSwap.ForeColor = this.ForeColor;
+                button.BackColor = Color.Transparent;
+                button.ForeColor = foreColor;
                 return true;
             }
 
             return false;
         }
-
-        private bool NormallightButtonClose()
-        {
-            if (!this.buttonClose.Visible)
-            {
-                this.buttonClose.Show();
-            }
-
-            if (this.buttonClose.ForeColor != this.ForeColor)
-            {
-                this.buttonClose.BackColor = Color.Transparent;
-                this.buttonClose.ForeColor = this.ForeColor;
-                return true;
-            }
-
-            return false;
-        }
-
+ 
         private Task DimlightAsync(Button button, int delay, Color fadingTo, CancellationTokenSource tokenSource = null)
         {
             if (delay <= 0) throw new ArgumentException("delay need greater than 0");
@@ -387,7 +381,7 @@ namespace BigClock
             }
         }
 
-        private void DimThenOffMultipleAsync(params Button[] buttons)
+        private void DimThenOffInitialAsync(params Button[] buttons)
         {
             if (buttons == null || buttons.Length == 0) return;
 
@@ -409,19 +403,19 @@ namespace BigClock
 
         private void buttonSwap_MouseHover(object sender, EventArgs e)
         {
-            HighlightButtonSwap();
+            HighlightButton(this.buttonSwap, Color.SlateBlue);
         }
 
         private void buttonSwap_MouseEnter(object sender, EventArgs e)
         {
             _HasMouseEnteredButton = true;
-            HighlightButtonSwap();
+            HighlightButton(this.buttonSwap, Color.SlateBlue);
         }
 
         private void buttonSwap_MouseLeave(object sender, EventArgs e)
         {
             _HasMouseEnteredButton = false;
-            NormallightButtonSwap();
+            NormallightButton(this.buttonSwap);
 
             //create so many background tasks when mouse fly over this control again and again
             //DimThenOffMultipleAsync(this.buttonClose, this.buttonSwap);
@@ -432,19 +426,19 @@ namespace BigClock
 
         private void buttonClose_MouseHover(object sender, EventArgs e)
         {
-            HighlightButtonClose();
+            HighlightButton(this.buttonClose, Color.Red);
         }
 
         private void buttonClose_MouseEnter(object sender, EventArgs e)
         {
             _HasMouseEnteredButton = true;
-            HighlightButtonClose();
+            HighlightButton(this.buttonClose, Color.Red);
         }
 
         private void buttonClose_MouseLeave(object sender, EventArgs e)
         {
             _HasMouseEnteredButton = false;
-            NormallightButtonClose();
+            NormallightButton(this.buttonClose);
 
             //create so many background tasks when mouse fly over this control again and again
             //DimThenOffMultipleAsync(this.buttonClose, this.buttonSwap);
@@ -456,8 +450,9 @@ namespace BigClock
         private void labelTime_MouseEnter(object sender, EventArgs e)
         {
             CancelPriorDimlight();
-            NormallightButtonSwap();
-            NormallightButtonClose();
+            NormallightButton(this.buttonSwap);
+            NormallightButton(this.buttonClose);
+            NormallightButton(this.buttonTopMost);
         }
 
         private void labelTime_MouseLeave(object sender, EventArgs e)
@@ -471,8 +466,9 @@ namespace BigClock
         private void labelTimeComma_MouseEnter(object sender, EventArgs e)
         {
             CancelPriorDimlight();
-            NormallightButtonSwap();
-            NormallightButtonClose();
+            NormallightButton(this.buttonSwap);
+            NormallightButton(this.buttonClose);
+            NormallightButton(this.buttonTopMost);
         }
 
         private void labelTimeComma_MouseLeave(object sender, EventArgs e)
@@ -489,6 +485,40 @@ namespace BigClock
 
             DimThenOffAsync(this.buttonClose, 10, Color.Gray, _ColorEmptyDelay);
             DimThenOffAsync(this.buttonSwap, 10, Color.Gray, _ColorEmptyDelay);
+            DimThenOffAsync(this.buttonTopMost, 10, Color.Gray, _ColorEmptyDelay);
+        }
+
+        private void buttonTopMost_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this._TopMost = !this._TopMost;
+                this.TopMost = _TopMost;
+                this.buttonTopMost.Text = this._TopMost ? UITopMost : UITopMostOff;
+                Properties.Settings.Default.TopMost = this._TopMost;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is an error: " + ex.ToString());
+            }
+        }
+
+        private void buttonTopMost_MouseHover(object sender, EventArgs e)
+        {
+            HighlightButton(this.buttonTopMost, Color.SlateBlue);
+        }
+        private void buttonTopMost_MouseEnter(object sender, EventArgs e)
+        {
+            _HasMouseEnteredButton = true;
+            HighlightButton(this.buttonTopMost, Color.SlateBlue);
+        }
+
+        private void buttonTopMost_MouseLeave(object sender, EventArgs e)
+        {
+            _HasMouseEnteredButton = false;
+            NormallightButton(this.buttonTopMost);
+
+            _MouseLeaveTimestamp = DateTime.Now;
         }
     }
 

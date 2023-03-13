@@ -39,6 +39,7 @@
             this.labelTimeComma = new System.Windows.Forms.Label();
             this.buttonOutlinerHolder = new System.Windows.Forms.Button();
             this.timerFading = new System.Windows.Forms.Timer(this.components);
+            this.buttonTopMost = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTime
@@ -105,7 +106,7 @@
             this.buttonSwap.FlatAppearance.BorderSize = 0;
             this.buttonSwap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSwap.Font = new System.Drawing.Font("SimSun", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonSwap.Location = new System.Drawing.Point(780, 78);
+            this.buttonSwap.Location = new System.Drawing.Point(780, 74);
             this.buttonSwap.Margin = new System.Windows.Forms.Padding(0);
             this.buttonSwap.Name = "buttonSwap";
             this.buttonSwap.Size = new System.Drawing.Size(100, 40);
@@ -147,6 +148,24 @@
             this.timerFading.Interval = 10000;
             this.timerFading.Tick += new System.EventHandler(this.timerFading_Tick);
             // 
+            // buttonTopMost
+            // 
+            this.buttonTopMost.BackColor = System.Drawing.Color.Transparent;
+            this.buttonTopMost.FlatAppearance.BorderSize = 0;
+            this.buttonTopMost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonTopMost.Font = new System.Drawing.Font("SimSun", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonTopMost.Location = new System.Drawing.Point(780, 124);
+            this.buttonTopMost.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonTopMost.Name = "buttonTopMost";
+            this.buttonTopMost.Size = new System.Drawing.Size(100, 40);
+            this.buttonTopMost.TabIndex = 102;
+            this.buttonTopMost.Text = "Pin Off";
+            this.buttonTopMost.UseVisualStyleBackColor = false;
+            this.buttonTopMost.Click += new System.EventHandler(this.buttonTopMost_Click);
+            this.buttonTopMost.MouseEnter += new System.EventHandler(this.buttonTopMost_MouseEnter);
+            this.buttonTopMost.MouseLeave += new System.EventHandler(this.buttonTopMost_MouseLeave);
+            this.buttonTopMost.MouseHover += new System.EventHandler(this.buttonTopMost_MouseHover);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -154,6 +173,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(930, 630);
             this.ControlBox = false;
+            this.Controls.Add(this.buttonTopMost);
             this.Controls.Add(this.buttonOutlinerHolder);
             this.Controls.Add(this.labelTimeComma);
             this.Controls.Add(this.buttonSwap);
@@ -187,6 +207,7 @@
         private System.Windows.Forms.Label labelTimeComma;
         private System.Windows.Forms.Button buttonOutlinerHolder;
         private System.Windows.Forms.Timer timerFading;
+        private System.Windows.Forms.Button buttonTopMost;
     }
 }
 
