@@ -1,4 +1,4 @@
-# sky-clock
+# sky clock
 
 A win form program that show time and date with BIG and BOLD font, also with transparent background and border-less frame.
 
@@ -14,7 +14,8 @@ A win form program that show time and date with BIG and BOLD font, also with tra
 
 ## features
 
-*[x] opened at last closed position
+* [x] opened at last closed position
+* [x] remember last clock face
  
 
 
