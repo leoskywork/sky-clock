@@ -11,3 +11,11 @@ A win form program that show time and date with BIG and BOLD font, also with tra
 - how to change or close clock face?
   - hover on the time text to make the buttons appear
   - then click on correspond buttons
+
+## features
+
+*[x] opened at last closed position
+ 
+
+
+
