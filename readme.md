@@ -2,7 +2,7 @@
 
 A win form program that show time and date with BIG and BOLD font, also with transparent background and border-less frame.
 
-## FAQ
+### faq
 
 - how to move around?
   - left click on a number in the time string then hold and move your mouse
@@ -12,7 +12,7 @@ A win form program that show time and date with BIG and BOLD font, also with tra
   - hover on the time text to make the buttons appear
   - then click on correspond buttons
 
-## features
+### features
 
 * [x] opened at last closed position
 * [x] remember last clock face
