@@ -24,6 +24,7 @@ namespace BigClock
         private const int _SyncClockOffsetAllowed = _SyncClockTimerInterval + 100;
         private const int _FastTimerInterval = 1000;
         private const int _SlowTimerInterval = 5 * 1000;
+        private readonly static Color _ButtonBackground = Color.Silver;
        
 
         public const string UITopMost = "Pin On";
@@ -57,7 +58,10 @@ namespace BigClock
             //this.timerMain.Interval = 5000;
             this.timerMain.Interval = _SyncClockTimerInterval;
             this.timerMain.Start();
-            SetUIClock(_UseDefaultTimeCommaColor, _ClockCore.GetCurrentClockFace(), true);
+
+            var face = _ClockCore.GetCurrentClockFace();
+            SetUIClock(_UseDefaultTimeCommaColor, face, true);
+            SetButtonAppearances(face);
 
             this.timerFading.Interval = ClockCore.ColorFadingDelay / 2;
             this.timerFading.Start();
@@ -160,9 +164,6 @@ namespace BigClock
                     this.labelDate.Text = null;
                     break;
             }
-
-            //4. set buttons location
-            SetButtonLocations(face);
         }
         private void SetUIBigLabelCommaBlink(bool defaultCommaColor, ClockFace face, DateTime now)
         {
@@ -202,7 +203,7 @@ namespace BigClock
                     break;
             }
         }
-        private void SetButtonLocations(ClockFace face)
+        private void SetButtonAppearances(ClockFace face)
         {
             int locationX = 450;
             int locationY = 24;
@@ -227,6 +228,10 @@ namespace BigClock
                 this.buttonSwap.Location = new System.Drawing.Point(locationX, locationY + 40);
                 this.buttonTopMost.Location = new System.Drawing.Point(locationX, locationY + 80);
             }
+
+            this.buttonClose.BackColor = _ButtonBackground;
+            this.buttonSwap.BackColor = _ButtonBackground;
+            this.buttonTopMost.BackColor = _ButtonBackground;
         }
         private void SetUITopMostFromSettings()
         {
@@ -309,7 +314,7 @@ namespace BigClock
 
             if (button.ForeColor != foreColor)
             {
-                button.BackColor = Color.Transparent;
+                button.BackColor = _ButtonBackground; //Color.Transparent;
                 button.ForeColor = foreColor;
                 return true;
             }
