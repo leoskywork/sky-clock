@@ -126,7 +126,6 @@ namespace BigClock
 
         public void CancelPriorDimlight()
         {
-
             for (int i = _CancelTokens.Count - 1; i >= 0; i--)
             {
                 _CancelTokens[i].Cancel();
