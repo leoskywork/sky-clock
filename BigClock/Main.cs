@@ -25,6 +25,8 @@ namespace BigClock
         private const int _FastTimerInterval = 1000;
         private const int _SlowTimerInterval = 5 * 1000;
         private readonly static Color _ButtonBackground = Color.Silver;
+
+        private ClockSetting _ClockSetting;
        
 
         public const string UITopMost = "Pin On";
@@ -32,6 +34,8 @@ namespace BigClock
 
         public Control Self { get { return this; } }    
         public bool HasMouseEnteredButton { get { return _HasMouseEnteredButton; } }
+
+        
 
         public Main()
         {
@@ -107,6 +111,12 @@ namespace BigClock
                     this.labelTime.ForeColor = face == ClockFace.TimeSmallTopMostWhite ? Color.LightGray : this.ForeColor;
 
                     this.labelTimeComma.Hide();
+                    break;
+                case ClockFace.TimeChangeableSize:
+                    this.labelTime.Text = now.ToString("H mm");
+                    var baseX = this.labelTime.Location.X;
+                    this.labelTimeComma.Location = now.Hour < 10 ? new Point(baseX + 56, 0) : new Point(baseX + 60, 0);
+                    this.labelTimeComma.Show();
                     break;
                 default:
                     MessageBox.Show("Unsupported clock face: " + face.ToString());
@@ -326,6 +336,45 @@ namespace BigClock
         private void buttonSwap_MouseHover(object sender, EventArgs e)
         {
             HighlightButton(this.buttonSwap, Color.SlateBlue);
+
+            if (this._ClockSetting == null)
+            {
+                var settingArgs = new ClockSettingArgs()
+                {
+                    //PreviewValue = string.Join(":", this.labelTime.Text.Split(' '))
+                    CurrentClockSize = this.labelTime.Font.Size,
+                };
+                _ClockSetting = new ClockSetting(settingArgs);
+                _ClockSetting.FormClosing += (_, __) => { _ClockSetting = null; };
+                _ClockSetting.ClockSettingChanged += (_, settingChangeArgs) =>
+                {
+                    if (this.labelTime.Font.Size != settingChangeArgs.FontSize)
+                    {
+                        _ClockCore.SwapCount = (int)ClockFace.TimeChangeableSize;
+
+                        this.labelTime.Font = CreateFontWithSize(settingChangeArgs.FontSize);
+                        this.labelTimeComma.Font = CreateFontWithSize(settingChangeArgs.FontSize * 3/5);
+
+                        if (this.labelDate.Visible)
+                        {
+                            this.labelDate.Font = CreateFontWithSize(settingChangeArgs.FontSize);
+                        }
+
+                        if (this.labelWeek.Visible)
+                        {
+                            this.labelWeek.Font = CreateFontWithSize(settingChangeArgs.FontSize);
+                        }
+
+                    }
+                };
+            }
+
+            //_ClockSetting.ShowAside(buttonSwap);
+        }
+
+        private Font CreateFontWithSize(float size)
+        {
+            return new System.Drawing.Font("SimSun", size, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
         }
         private void buttonSwap_MouseEnter(object sender, EventArgs e)
         {

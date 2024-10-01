@@ -7,7 +7,7 @@ namespace BigClock
 {
     public enum ClockFace
     {
-        Time,
+        Time = 0,
         TimeWhite,
 
         TimeWeek,
@@ -27,5 +27,7 @@ namespace BigClock
 
         TimeSmallTopMost,
         TimeSmallTopMostWhite,
+
+        TimeChangeableSize
     }
 }

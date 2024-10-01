@@ -83,6 +83,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ClockSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClockSetting.Designer.cs">
+      <DependentUpon>ClockSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClockSettingArgs.cs" />
     <Compile Include="Settings.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
@@ -96,6 +103,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ClockSetting.resx">
+      <DependentUpon>ClockSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="BigClock_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
