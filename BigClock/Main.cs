@@ -113,10 +113,10 @@ namespace BigClock
                     this.labelTimeComma.Hide();
                     break;
                 case ClockFace.TimeChangeableSize:
-                    this.labelTime.Text = now.ToString("H mm");
-                    var baseX = this.labelTime.Location.X;
-                    this.labelTimeComma.Location = now.Hour < 10 ? new Point(baseX + 56, 0) : new Point(baseX + 60, 0);
-                    this.labelTimeComma.Show();
+                    this.labelTime.Text = now.ToString("H:mm");
+                    //var baseX = this.labelTime.Location.X;
+                    //this.labelTimeComma.Location = now.Hour < 10 ? new Point(baseX + 56, 0) : new Point(baseX + 60, 0);
+                    //this.labelTimeComma.Show();
                     break;
                 default:
                     MessageBox.Show("Unsupported clock face: " + face.ToString());
@@ -289,7 +289,7 @@ namespace BigClock
                 _ClockCore.SwapCount++;
                 Properties.Settings.Default.LastCloseMode = _ClockCore.SwapCount;
                 this.SetUIClock(_UseDefaultTimeCommaColor, _ClockCore.GetCurrentClockFace(), false);
-
+                this.Text = $"{_ClockCore.GetCurrentClockFace()}";
             }
             catch (Exception ex)
             {
@@ -353,7 +353,8 @@ namespace BigClock
                         _ClockCore.SwapCount = (int)ClockFace.TimeChangeableSize;
 
                         this.labelTime.Font = CreateFontWithSize(settingChangeArgs.FontSize);
-                        this.labelTimeComma.Font = CreateFontWithSize(settingChangeArgs.FontSize * 3/5);
+                        //this.labelTimeComma.Font = CreateFontWithSize(settingChangeArgs.FontSize * 3/5);
+                        this.labelTimeComma.Hide();
 
                         if (this.labelDate.Visible)
                         {
@@ -369,7 +370,7 @@ namespace BigClock
                 };
             }
 
-            //_ClockSetting.ShowAside(buttonSwap);
+            _ClockSetting.ShowAside(this);
         }
 
         private Font CreateFontWithSize(float size)
@@ -417,6 +418,7 @@ namespace BigClock
         private void labelTime_MouseEnter(object sender, EventArgs e)
         {
             _ClockCore.CancelPriorDimlight();
+            SetButtonAppearances(_ClockCore.GetCurrentClockFace()); 
             NormallightButton(this.buttonSwap, this.ForeColor);
             NormallightButton(this.buttonClose, this.ForeColor);
             NormallightButton(this.buttonTopMost, this.ForeColor);
@@ -432,6 +434,7 @@ namespace BigClock
         private void labelTimeComma_MouseEnter(object sender, EventArgs e)
         {
             _ClockCore.CancelPriorDimlight();
+            SetButtonAppearances(_ClockCore.GetCurrentClockFace());
             NormallightButton(this.buttonSwap, this.ForeColor);
             NormallightButton(this.buttonClose, this.ForeColor);
             NormallightButton(this.buttonTopMost, this.ForeColor);

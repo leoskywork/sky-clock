@@ -61,7 +61,7 @@ namespace BigClock
             if (parent != null)
             {
                 this.StartPosition = FormStartPosition.Manual;
-                this.Location = new Point(parent.Location.X - 40, parent.Location.Y + 40);
+                this.Location = new Point(parent.Location.X + 60, parent.Location.Y + 160);
             }
 
             _DisplayAt = DateTime.Now;
