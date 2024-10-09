@@ -9,6 +9,7 @@ namespace BigClock
     public class PowerTool
     {
         public const string Version = "1.0.1";
+        public const string AppName = "LEO Clock";
     }
 
 

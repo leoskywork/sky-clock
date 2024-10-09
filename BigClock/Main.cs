@@ -254,6 +254,8 @@ namespace BigClock
         private void Main_Load(object sender, EventArgs e)
         {
             _ClockCore.DimThenOffInitialAsync(this.buttonClose, this.buttonSwap, this.buttonTopMost);
+
+            this.Text = $"{PowerTool.AppName} - {PowerTool.Version}";
         }
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
