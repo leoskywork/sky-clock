@@ -267,7 +267,7 @@ namespace BigClock
             _UseDefaultTimeCommaColor = !_UseDefaultTimeCommaColor;
             SetUIClock(_UseDefaultTimeCommaColor, _ClockCore.GetCurrentClockFace(), DateTime.Now.Millisecond > _SyncClockOffsetAllowed);
 
-            System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString("h:mm:ss.fff"));
+            //System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString("h:mm:ss.fff"));
         }
         private void timerFading_Tick(object sender, EventArgs e)
         {
@@ -343,6 +343,7 @@ namespace BigClock
                 {
                     //PreviewValue = string.Join(":", this.labelTime.Text.Split(' '))
                     CurrentClockSize = this.labelTime.Font.Size,
+                    CurrentFace = _ClockCore.GetCurrentClockFace(),
                 };
                 _ClockSetting = new ClockSetting(settingArgs);
                 _ClockSetting.FormClosing += (_, __) => { _ClockSetting = null; };

@@ -36,13 +36,22 @@
             this.groupBoxTimeSize = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanelClock = new System.Windows.Forms.TableLayoutPanel();
             this.panelClockTop = new System.Windows.Forms.Panel();
-            this.groupBoxTimer = new System.Windows.Forms.GroupBox();
             this.panelRight = new System.Windows.Forms.Panel();
+            this.groupBoxTimer = new System.Windows.Forms.GroupBox();
+            this.buttonTimerCancel = new System.Windows.Forms.Button();
+            this.labelTimerMessage = new System.Windows.Forms.Label();
+            this.numericUpDownTimerMinute = new System.Windows.Forms.NumericUpDown();
+            this.buttonTimerStart = new System.Windows.Forms.Button();
+            this.buttonTest = new System.Windows.Forms.Button();
+            this.textBoxMessage = new System.Windows.Forms.TextBox();
+            this.checkBoxKillChrome = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFontSize)).BeginInit();
             this.groupBoxTimeSize.SuspendLayout();
             this.tableLayoutPanelClock.SuspendLayout();
             this.panelClockTop.SuspendLayout();
             this.panelRight.SuspendLayout();
+            this.groupBoxTimer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimerMinute)).BeginInit();
             this.SuspendLayout();
             // 
             // numericUpDownFontSize
@@ -73,7 +82,7 @@
             // 
             this.buttonApply.Enabled = false;
             this.buttonApply.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonApply.Location = new System.Drawing.Point(78, 5);
+            this.buttonApply.Location = new System.Drawing.Point(78, 4);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(80, 32);
             this.buttonApply.TabIndex = 2;
@@ -134,15 +143,6 @@
             this.panelClockTop.Size = new System.Drawing.Size(170, 175);
             this.panelClockTop.TabIndex = 0;
             // 
-            // groupBoxTimer
-            // 
-            this.groupBoxTimer.Location = new System.Drawing.Point(12, 225);
-            this.groupBoxTimer.Name = "groupBoxTimer";
-            this.groupBoxTimer.Size = new System.Drawing.Size(758, 116);
-            this.groupBoxTimer.TabIndex = 5;
-            this.groupBoxTimer.TabStop = false;
-            this.groupBoxTimer.Text = "Timer";
-            // 
             // panelRight
             // 
             this.panelRight.AutoScroll = true;
@@ -153,23 +153,141 @@
             this.panelRight.Size = new System.Drawing.Size(570, 175);
             this.panelRight.TabIndex = 2;
             // 
+            // groupBoxTimer
+            // 
+            this.groupBoxTimer.Controls.Add(this.checkBoxKillChrome);
+            this.groupBoxTimer.Controls.Add(this.textBoxMessage);
+            this.groupBoxTimer.Controls.Add(this.buttonTest);
+            this.groupBoxTimer.Controls.Add(this.buttonTimerCancel);
+            this.groupBoxTimer.Controls.Add(this.labelTimerMessage);
+            this.groupBoxTimer.Controls.Add(this.numericUpDownTimerMinute);
+            this.groupBoxTimer.Controls.Add(this.buttonTimerStart);
+            this.groupBoxTimer.Location = new System.Drawing.Point(12, 225);
+            this.groupBoxTimer.Name = "groupBoxTimer";
+            this.groupBoxTimer.Size = new System.Drawing.Size(758, 257);
+            this.groupBoxTimer.TabIndex = 5;
+            this.groupBoxTimer.TabStop = false;
+            this.groupBoxTimer.Text = "Timer";
+            // 
+            // buttonTimerCancel
+            // 
+            this.buttonTimerCancel.Enabled = false;
+            this.buttonTimerCancel.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonTimerCancel.Location = new System.Drawing.Point(211, 24);
+            this.buttonTimerCancel.Name = "buttonTimerCancel";
+            this.buttonTimerCancel.Size = new System.Drawing.Size(100, 32);
+            this.buttonTimerCancel.TabIndex = 6;
+            this.buttonTimerCancel.Text = "Cancel";
+            this.buttonTimerCancel.UseVisualStyleBackColor = true;
+            this.buttonTimerCancel.Click += new System.EventHandler(this.buttonTimerCancel_Click);
+            // 
+            // labelTimerMessage
+            // 
+            this.labelTimerMessage.BackColor = System.Drawing.Color.Gray;
+            this.labelTimerMessage.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelTimerMessage.ForeColor = System.Drawing.Color.White;
+            this.labelTimerMessage.Location = new System.Drawing.Point(618, 220);
+            this.labelTimerMessage.Name = "labelTimerMessage";
+            this.labelTimerMessage.Size = new System.Drawing.Size(125, 28);
+            this.labelTimerMessage.TabIndex = 5;
+            this.labelTimerMessage.Text = "msg";
+            // 
+            // numericUpDownTimerMinute
+            // 
+            this.numericUpDownTimerMinute.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDownTimerMinute.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDownTimerMinute.Location = new System.Drawing.Point(9, 24);
+            this.numericUpDownTimerMinute.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.numericUpDownTimerMinute.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownTimerMinute.Name = "numericUpDownTimerMinute";
+            this.numericUpDownTimerMinute.Size = new System.Drawing.Size(60, 30);
+            this.numericUpDownTimerMinute.TabIndex = 4;
+            this.numericUpDownTimerMinute.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // buttonTimerStart
+            // 
+            this.buttonTimerStart.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonTimerStart.Location = new System.Drawing.Point(90, 23);
+            this.buttonTimerStart.Name = "buttonTimerStart";
+            this.buttonTimerStart.Size = new System.Drawing.Size(100, 32);
+            this.buttonTimerStart.TabIndex = 5;
+            this.buttonTimerStart.Text = "Start";
+            this.buttonTimerStart.UseVisualStyleBackColor = true;
+            this.buttonTimerStart.Click += new System.EventHandler(this.buttonTimerStart_Click);
+            // 
+            // buttonTest
+            // 
+            this.buttonTest.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonTest.Location = new System.Drawing.Point(626, 20);
+            this.buttonTest.Name = "buttonTest";
+            this.buttonTest.Size = new System.Drawing.Size(100, 32);
+            this.buttonTest.TabIndex = 7;
+            this.buttonTest.Text = "Test";
+            this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
+            // 
+            // textBoxMessage
+            // 
+            this.textBoxMessage.BackColor = System.Drawing.Color.White;
+            this.textBoxMessage.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxMessage.ForeColor = System.Drawing.Color.Black;
+            this.textBoxMessage.Location = new System.Drawing.Point(9, 66);
+            this.textBoxMessage.Multiline = true;
+            this.textBoxMessage.Name = "textBoxMessage";
+            this.textBoxMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxMessage.Size = new System.Drawing.Size(577, 182);
+            this.textBoxMessage.TabIndex = 8;
+            this.textBoxMessage.Text = "test";
+            // 
+            // checkBoxKillChrome
+            // 
+            this.checkBoxKillChrome.AutoSize = true;
+            this.checkBoxKillChrome.Checked = true;
+            this.checkBoxKillChrome.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxKillChrome.Location = new System.Drawing.Point(626, 72);
+            this.checkBoxKillChrome.Name = "checkBoxKillChrome";
+            this.checkBoxKillChrome.Size = new System.Drawing.Size(117, 19);
+            this.checkBoxKillChrome.TabIndex = 9;
+            this.checkBoxKillChrome.Text = "Kill Chrome";
+            this.checkBoxKillChrome.UseVisualStyleBackColor = true;
+            // 
             // ClockSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(782, 353);
+            this.ClientSize = new System.Drawing.Size(782, 494);
             this.Controls.Add(this.groupBoxTimer);
             this.Controls.Add(this.groupBoxTimeSize);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "ClockSetting";
             this.Text = "Setting";
+            this.Load += new System.EventHandler(this.ClockSetting_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFontSize)).EndInit();
             this.groupBoxTimeSize.ResumeLayout(false);
             this.tableLayoutPanelClock.ResumeLayout(false);
             this.panelClockTop.ResumeLayout(false);
             this.panelRight.ResumeLayout(false);
             this.panelRight.PerformLayout();
+            this.groupBoxTimer.ResumeLayout(false);
+            this.groupBoxTimer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimerMinute)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -184,5 +302,12 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelClock;
         private System.Windows.Forms.Panel panelClockTop;
         private System.Windows.Forms.Panel panelRight;
+        private System.Windows.Forms.Button buttonTimerStart;
+        private System.Windows.Forms.NumericUpDown numericUpDownTimerMinute;
+        private System.Windows.Forms.Label labelTimerMessage;
+        private System.Windows.Forms.Button buttonTimerCancel;
+        private System.Windows.Forms.Button buttonTest;
+        private System.Windows.Forms.TextBox textBoxMessage;
+        private System.Windows.Forms.CheckBox checkBoxKillChrome;
     }
 }

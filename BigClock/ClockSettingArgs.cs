@@ -10,6 +10,8 @@ namespace BigClock
         public float CurrentClockSize { get; set; }
 
         public string PreviewValue { get; set; }
+
+        public ClockFace CurrentFace { get; set; }
     }
 
     public class ClockSettingChangeArgs : EventArgs
