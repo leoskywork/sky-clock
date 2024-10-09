@@ -8,6 +8,7 @@ namespace BigClock
 {
     public class PowerTool
     {
+        public const string Version = "1.0.1";
     }
 
 
