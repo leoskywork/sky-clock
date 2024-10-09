@@ -115,6 +115,11 @@ namespace BigClock
             {
                 this.Close();
             }
+
+            if (DateTime.Now.Second % 10 == 0)
+            {
+                this.Out(this.Text);
+            }
         }
 
         private void RunTaskAsync()
