@@ -38,13 +38,15 @@
             this.panelClockTop = new System.Windows.Forms.Panel();
             this.panelRight = new System.Windows.Forms.Panel();
             this.groupBoxTimer = new System.Windows.Forms.GroupBox();
+            this.checkBoxSleepPC = new System.Windows.Forms.CheckBox();
+            this.checkBoxKillChrome = new System.Windows.Forms.CheckBox();
+            this.textBoxMessage = new System.Windows.Forms.TextBox();
+            this.buttonTest = new System.Windows.Forms.Button();
             this.buttonTimerCancel = new System.Windows.Forms.Button();
             this.labelTimerMessage = new System.Windows.Forms.Label();
             this.numericUpDownTimerMinute = new System.Windows.Forms.NumericUpDown();
             this.buttonTimerStart = new System.Windows.Forms.Button();
-            this.buttonTest = new System.Windows.Forms.Button();
-            this.textBoxMessage = new System.Windows.Forms.TextBox();
-            this.checkBoxKillChrome = new System.Windows.Forms.CheckBox();
+            this.buttonClearMessage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFontSize)).BeginInit();
             this.groupBoxTimeSize.SuspendLayout();
             this.tableLayoutPanelClock.SuspendLayout();
@@ -155,6 +157,8 @@
             // 
             // groupBoxTimer
             // 
+            this.groupBoxTimer.Controls.Add(this.buttonClearMessage);
+            this.groupBoxTimer.Controls.Add(this.checkBoxSleepPC);
             this.groupBoxTimer.Controls.Add(this.checkBoxKillChrome);
             this.groupBoxTimer.Controls.Add(this.textBoxMessage);
             this.groupBoxTimer.Controls.Add(this.buttonTest);
@@ -168,6 +172,54 @@
             this.groupBoxTimer.TabIndex = 5;
             this.groupBoxTimer.TabStop = false;
             this.groupBoxTimer.Text = "Timer";
+            // 
+            // checkBoxSleepPC
+            // 
+            this.checkBoxSleepPC.AutoSize = true;
+            this.checkBoxSleepPC.Checked = true;
+            this.checkBoxSleepPC.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSleepPC.Location = new System.Drawing.Point(626, 109);
+            this.checkBoxSleepPC.Name = "checkBoxSleepPC";
+            this.checkBoxSleepPC.Size = new System.Drawing.Size(93, 19);
+            this.checkBoxSleepPC.TabIndex = 10;
+            this.checkBoxSleepPC.Text = "Sleep PC";
+            this.checkBoxSleepPC.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxKillChrome
+            // 
+            this.checkBoxKillChrome.AutoSize = true;
+            this.checkBoxKillChrome.Checked = true;
+            this.checkBoxKillChrome.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxKillChrome.Location = new System.Drawing.Point(626, 72);
+            this.checkBoxKillChrome.Name = "checkBoxKillChrome";
+            this.checkBoxKillChrome.Size = new System.Drawing.Size(117, 19);
+            this.checkBoxKillChrome.TabIndex = 9;
+            this.checkBoxKillChrome.Text = "Kill Chrome";
+            this.checkBoxKillChrome.UseVisualStyleBackColor = true;
+            // 
+            // textBoxMessage
+            // 
+            this.textBoxMessage.BackColor = System.Drawing.Color.White;
+            this.textBoxMessage.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxMessage.ForeColor = System.Drawing.Color.Black;
+            this.textBoxMessage.Location = new System.Drawing.Point(9, 66);
+            this.textBoxMessage.Multiline = true;
+            this.textBoxMessage.Name = "textBoxMessage";
+            this.textBoxMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxMessage.Size = new System.Drawing.Size(577, 182);
+            this.textBoxMessage.TabIndex = 8;
+            this.textBoxMessage.Text = "test";
+            // 
+            // buttonTest
+            // 
+            this.buttonTest.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonTest.Location = new System.Drawing.Point(626, 20);
+            this.buttonTest.Name = "buttonTest";
+            this.buttonTest.Size = new System.Drawing.Size(100, 32);
+            this.buttonTest.TabIndex = 7;
+            this.buttonTest.Text = "Test";
+            this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
             // 
             // buttonTimerCancel
             // 
@@ -231,41 +283,16 @@
             this.buttonTimerStart.UseVisualStyleBackColor = true;
             this.buttonTimerStart.Click += new System.EventHandler(this.buttonTimerStart_Click);
             // 
-            // buttonTest
+            // buttonClearMessage
             // 
-            this.buttonTest.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonTest.Location = new System.Drawing.Point(626, 20);
-            this.buttonTest.Name = "buttonTest";
-            this.buttonTest.Size = new System.Drawing.Size(100, 32);
-            this.buttonTest.TabIndex = 7;
-            this.buttonTest.Text = "Test";
-            this.buttonTest.UseVisualStyleBackColor = true;
-            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
-            // 
-            // textBoxMessage
-            // 
-            this.textBoxMessage.BackColor = System.Drawing.Color.White;
-            this.textBoxMessage.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxMessage.ForeColor = System.Drawing.Color.Black;
-            this.textBoxMessage.Location = new System.Drawing.Point(9, 66);
-            this.textBoxMessage.Multiline = true;
-            this.textBoxMessage.Name = "textBoxMessage";
-            this.textBoxMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxMessage.Size = new System.Drawing.Size(577, 182);
-            this.textBoxMessage.TabIndex = 8;
-            this.textBoxMessage.Text = "test";
-            // 
-            // checkBoxKillChrome
-            // 
-            this.checkBoxKillChrome.AutoSize = true;
-            this.checkBoxKillChrome.Checked = true;
-            this.checkBoxKillChrome.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxKillChrome.Location = new System.Drawing.Point(626, 72);
-            this.checkBoxKillChrome.Name = "checkBoxKillChrome";
-            this.checkBoxKillChrome.Size = new System.Drawing.Size(117, 19);
-            this.checkBoxKillChrome.TabIndex = 9;
-            this.checkBoxKillChrome.Text = "Kill Chrome";
-            this.checkBoxKillChrome.UseVisualStyleBackColor = true;
+            this.buttonClearMessage.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonClearMessage.Location = new System.Drawing.Point(336, 24);
+            this.buttonClearMessage.Name = "buttonClearMessage";
+            this.buttonClearMessage.Size = new System.Drawing.Size(100, 32);
+            this.buttonClearMessage.TabIndex = 11;
+            this.buttonClearMessage.Text = "Clear";
+            this.buttonClearMessage.UseVisualStyleBackColor = true;
+            this.buttonClearMessage.Click += new System.EventHandler(this.buttonClearMessage_Click);
             // 
             // ClockSetting
             // 
@@ -309,5 +336,7 @@
         private System.Windows.Forms.Button buttonTest;
         private System.Windows.Forms.TextBox textBoxMessage;
         private System.Windows.Forms.CheckBox checkBoxKillChrome;
+        private System.Windows.Forms.CheckBox checkBoxSleepPC;
+        private System.Windows.Forms.Button buttonClearMessage;
     }
 }

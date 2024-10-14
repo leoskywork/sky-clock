@@ -16,7 +16,7 @@ namespace BigClock
     public partial class ClockSetting : Form
     {
         public const int DefaultLifeSpanSeconds = 100;
-        
+
         private float _DefaultSize;
         private DateTime _DisplayAt;
         private int _TimerMinute;
@@ -90,35 +90,42 @@ namespace BigClock
 
         private void timerClose_Tick(object sender, EventArgs e)
         {
-            var passed = DateTime.Now - _DisplayAt;
-            var timerSeconds = _TimerMinute * 60 - 4;
-            var lifeSeconds = timerSeconds > DefaultLifeSpanSeconds ? timerSeconds : DefaultLifeSpanSeconds;
-            var remainingSeconds = lifeSeconds - (int)passed.TotalSeconds;
-            this.Text = $"Setting - auto close in {(remainingSeconds > 60 ? remainingSeconds/60 + " min " : "")}{remainingSeconds%60} s";
-
-            if (_RunningTask)
+            try
             {
-                if (passed.TotalSeconds > lifeSeconds - 10)
+                var passed = DateTime.Now - _DisplayAt;
+                var timerSeconds = _TimerMinute * 60 - 4;
+                var lifeSeconds = timerSeconds > DefaultLifeSpanSeconds ? timerSeconds : DefaultLifeSpanSeconds;
+                var remainingSeconds = lifeSeconds - (int)passed.TotalSeconds;
+                this.Text = $"Setting - auto close in {(remainingSeconds > 60 ? remainingSeconds / 60 + " min " : "")}{remainingSeconds % 60} s";
+
+                if (_RunningTask)
                 {
-                    this.Out("Running task");
-                    RunTaskAsync();
+                    if (passed.TotalSeconds > lifeSeconds - 10)
+                    {
+                        this.Out("Running task");
+                        RunTaskAsync();
+                    }
+
+                    if (passed.TotalSeconds > lifeSeconds - 4)
+                    {
+                        this.Out("Sleeping PC");
+                        SleepPCAsync();
+                    }
                 }
 
-                if (passed.TotalSeconds > lifeSeconds - 4)
+                if (passed.TotalSeconds > lifeSeconds)
                 {
-                    this.Out("Sleeping PC");
-                    SleepPCAsync();
+                    this.Close();
+                }
+
+                if (DateTime.Now.Second % 10 == 0)
+                {
+                    this.Out(this.Text);
                 }
             }
-
-            if (passed.TotalSeconds > lifeSeconds)
+            catch (Exception ex)
             {
-                this.Close();
-            }
-
-            if (DateTime.Now.Second % 10 == 0)
-            {
-                this.Out(this.Text);
+                MessageBox.Show(ex.ToString()); 
             }
         }
 
@@ -126,10 +133,12 @@ namespace BigClock
         {
             var processNames = new List<string>(); // new[] { "chrome" };
 
-            if(this.checkBoxKillChrome.Checked)
+            if (this.checkBoxKillChrome.Checked)
             {
                 processNames.Add("chrome");
             }
+
+            if (processNames.Count == 0) { this.Out("No task selected"); return; }
 
             Task.Factory.StartNew(() =>
             {
@@ -173,6 +182,8 @@ namespace BigClock
 
         private void SleepPCAsync()
         {
+            if (!this.checkBoxSleepPC.Checked) { this.Out("Sleep PC not selected"); return; }
+
             Task.Factory.StartNew(() =>
             {
                 string cmd = $"ipconfig";
@@ -197,7 +208,9 @@ namespace BigClock
             this.buttonTimerStart.Enabled = !taskRunning;
             this.buttonTimerCancel.Enabled = taskRunning;
             this.numericUpDownTimerMinute.Enabled = !taskRunning;
+            this.buttonTest.Enabled = !taskRunning;
             this.checkBoxKillChrome.Enabled = !taskRunning;
+            this.checkBoxSleepPC.Enabled = !taskRunning;
             _RunningTask = taskRunning;
         }
 
@@ -218,7 +231,7 @@ namespace BigClock
             _DisplayAt = DateTime.Now;
 
             RunTaskAsync();
-            //SleepPCAsync();
+            SleepPCAsync();
 
             System.Threading.Thread.Sleep(200);
             this.buttonTest.Enabled = true;
@@ -251,7 +264,13 @@ namespace BigClock
             this.Out(_ClockFace.ToString());
 
         }
+
+        private void buttonClearMessage_Click(object sender, EventArgs e)
+        {
+            this.textBoxMessage.Text = null;
+            this.labelTimerMessage.Text = null;
+        }
     }
 
-    
+
 }
