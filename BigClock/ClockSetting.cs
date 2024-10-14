@@ -44,15 +44,17 @@ namespace BigClock
             this.labelTimerMessage.Visible = false;
             _ClockFace = args.CurrentFace;
 
+
+
+            this.buttonTest.Visible = false;
+
+
             if (Environment.MachineName == "LEO-PC-PRO")
             {
                 this.buttonTest.Visible = true;
                 this.TopMost = true;
             }
-            else
-            {
-                this.buttonTest.Visible = false;
-            }
+
         }
 
         private void numericUpDownFontSize_ValueChanged(object sender, EventArgs e)
@@ -125,20 +127,20 @@ namespace BigClock
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString()); 
+                MessageBox.Show(ex.ToString());
             }
         }
 
         private void RunTaskAsync()
         {
-            var processNames = new List<string>(); // new[] { "chrome" };
+            var processNames = new List<string>();
 
             if (this.checkBoxKillChrome.Checked)
             {
                 processNames.Add("chrome");
             }
 
-            if (processNames.Count == 0) { this.Out("No task selected"); return; }
+            if (processNames.Count == 0) { this.Out("kill process count is 0"); return; }
 
             Task.Factory.StartNew(() =>
             {
@@ -186,11 +188,16 @@ namespace BigClock
 
             Task.Factory.StartNew(() =>
             {
-                string cmd = $"ipconfig";
-                cmd = "rundll32.exe powrprof.dll, SetSuspendState Sleep";
+                //string cmd = $"ipconfig";
+                //cmd = "rundll32.exe powrprof.dll, SetSuspendState Sleep";
+                //string result = CmdExecutor.ExecuteCommand(cmd);
+                //this.Out(result);
 
-                string result = CmdExecutor.ExecuteCommand(cmd);
-                this.Out(result);
+                //this.Out("going to lock OS");
+                //PowerTool.OSLock();
+
+                this.Out("going to sleep OS");
+                PowerTool.OSSleep();
             });
         }
 
@@ -261,7 +268,7 @@ namespace BigClock
         private void ClockSetting_Load(object sender, EventArgs e)
         {
             this.textBoxMessage.Text = null;
-            this.Out(_ClockFace.ToString());
+            this.Out("Clock face: " + _ClockFace.ToString());
 
         }
 
