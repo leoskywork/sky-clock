@@ -290,8 +290,9 @@ namespace BigClock
             {
                 _ClockCore.SwapCount++;
                 Properties.Settings.Default.LastCloseMode = _ClockCore.SwapCount;
-                this.SetUIClock(_UseDefaultTimeCommaColor, _ClockCore.GetCurrentClockFace(), false);
-                this.Text = $"{_ClockCore.GetCurrentClockFace()}";
+                var currentFace = _ClockCore.GetCurrentClockFace();
+                this.SetUIClock(_UseDefaultTimeCommaColor, currentFace, false);
+                PowerEventHub.Default.FireFaceChanged(new ChangeClockFaceEventArgs() { NewFace = currentFace });
             }
             catch (Exception ex)
             {

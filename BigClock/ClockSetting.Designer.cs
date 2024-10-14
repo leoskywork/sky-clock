@@ -305,6 +305,7 @@
             this.MaximizeBox = false;
             this.Name = "ClockSetting";
             this.Text = "Setting";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClockSetting_FormClosing);
             this.Load += new System.EventHandler(this.ClockSetting_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFontSize)).EndInit();
             this.groupBoxTimeSize.ResumeLayout(false);

@@ -76,7 +76,7 @@ namespace BigClock
 
     public class PowerEventHub
     {
-        public static readonly PowerEventHub Instance = new PowerEventHub();
+        public static readonly PowerEventHub Default = new PowerEventHub();
 
         public event EventHandler<ChangeClockFaceEventArgs> FaceChanged;
 
@@ -94,7 +94,7 @@ namespace BigClock
 
     public class ChangeClockFaceEventArgs : EventArgs
     {
-        public ClockCore NewFace { get; set; }
+        public ClockFace NewFace { get; set; }
     }
 
     public class CmdExecutor

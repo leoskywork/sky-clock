@@ -44,9 +44,9 @@ namespace BigClock
             this.labelTimerMessage.Visible = false;
             _ClockFace = args.CurrentFace;
 
-
-
             this.buttonTest.Visible = false;
+
+
 
 
             if (Environment.MachineName == "LEO-PC-PRO")
@@ -54,7 +54,6 @@ namespace BigClock
                 this.buttonTest.Visible = true;
                 this.TopMost = true;
             }
-
         }
 
         private void numericUpDownFontSize_ValueChanged(object sender, EventArgs e)
@@ -268,8 +267,21 @@ namespace BigClock
         private void ClockSetting_Load(object sender, EventArgs e)
         {
             this.textBoxMessage.Text = null;
-            this.Out("Clock face: " + _ClockFace.ToString());
+            this.Out("clock face: " + _ClockFace.ToString());
+            PowerEventHub.Default.FaceChanged += OnFaceChanged;
+        }
 
+        private void OnFaceChanged(object sender, ChangeClockFaceEventArgs e)
+        {
+            if (e == null) throw new ArgumentNullException("e");
+
+            _ClockFace = e.NewFace;
+            this.Out("new clock face: " + _ClockFace.ToString());
+        }
+
+        private void ClockSetting_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            PowerEventHub.Default.FaceChanged -= OnFaceChanged;
         }
 
         private void buttonClearMessage_Click(object sender, EventArgs e)
