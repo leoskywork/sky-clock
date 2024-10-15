@@ -176,7 +176,7 @@
             // buttonClearMessage
             // 
             this.buttonClearMessage.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonClearMessage.Location = new System.Drawing.Point(626, 175);
+            this.buttonClearMessage.Location = new System.Drawing.Point(461, 203);
             this.buttonClearMessage.Name = "buttonClearMessage";
             this.buttonClearMessage.Size = new System.Drawing.Size(100, 32);
             this.buttonClearMessage.TabIndex = 11;
