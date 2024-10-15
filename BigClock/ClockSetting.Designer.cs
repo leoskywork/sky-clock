@@ -38,6 +38,7 @@
             this.panelClockTop = new System.Windows.Forms.Panel();
             this.panelRight = new System.Windows.Forms.Panel();
             this.groupBoxTimer = new System.Windows.Forms.GroupBox();
+            this.buttonClearMessage = new System.Windows.Forms.Button();
             this.checkBoxSleepPC = new System.Windows.Forms.CheckBox();
             this.checkBoxKillChrome = new System.Windows.Forms.CheckBox();
             this.textBoxMessage = new System.Windows.Forms.TextBox();
@@ -46,7 +47,6 @@
             this.labelTimerMessage = new System.Windows.Forms.Label();
             this.numericUpDownTimerMinute = new System.Windows.Forms.NumericUpDown();
             this.buttonTimerStart = new System.Windows.Forms.Button();
-            this.buttonClearMessage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFontSize)).BeginInit();
             this.groupBoxTimeSize.SuspendLayout();
             this.tableLayoutPanelClock.SuspendLayout();
@@ -173,6 +173,17 @@
             this.groupBoxTimer.TabStop = false;
             this.groupBoxTimer.Text = "Timer";
             // 
+            // buttonClearMessage
+            // 
+            this.buttonClearMessage.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonClearMessage.Location = new System.Drawing.Point(626, 175);
+            this.buttonClearMessage.Name = "buttonClearMessage";
+            this.buttonClearMessage.Size = new System.Drawing.Size(100, 32);
+            this.buttonClearMessage.TabIndex = 11;
+            this.buttonClearMessage.Text = "Clear";
+            this.buttonClearMessage.UseVisualStyleBackColor = true;
+            this.buttonClearMessage.Click += new System.EventHandler(this.buttonClearMessage_Click);
+            // 
             // checkBoxSleepPC
             // 
             this.checkBoxSleepPC.AutoSize = true;
@@ -282,17 +293,6 @@
             this.buttonTimerStart.Text = "Start";
             this.buttonTimerStart.UseVisualStyleBackColor = true;
             this.buttonTimerStart.Click += new System.EventHandler(this.buttonTimerStart_Click);
-            // 
-            // buttonClearMessage
-            // 
-            this.buttonClearMessage.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonClearMessage.Location = new System.Drawing.Point(336, 24);
-            this.buttonClearMessage.Name = "buttonClearMessage";
-            this.buttonClearMessage.Size = new System.Drawing.Size(100, 32);
-            this.buttonClearMessage.TabIndex = 11;
-            this.buttonClearMessage.Text = "Clear";
-            this.buttonClearMessage.UseVisualStyleBackColor = true;
-            this.buttonClearMessage.Click += new System.EventHandler(this.buttonClearMessage_Click);
             // 
             // ClockSetting
             // 

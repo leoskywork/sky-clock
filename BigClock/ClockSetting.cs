@@ -44,16 +44,8 @@ namespace BigClock
             this.labelTimerMessage.Visible = false;
             _ClockFace = args.CurrentFace;
 
-            this.buttonTest.Visible = false;
+            this.buttonTest.Visible = Properties.Settings.Default.ShowTest;
 
-
-
-
-            if (Environment.MachineName == "LEO-PC-PRO")
-            {
-                this.buttonTest.Visible = true;
-                this.TopMost = true;
-            }
         }
 
         private void numericUpDownFontSize_ValueChanged(object sender, EventArgs e)

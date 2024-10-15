@@ -338,6 +338,8 @@ namespace BigClock
 
         private void buttonSwap_MouseHover(object sender, EventArgs e)
         {
+            if (!Properties.Settings.Default.ShowSettings) return;
+
             HighlightButton(this.buttonSwap, Color.SlateBlue);
 
             if (this._ClockSetting == null)
