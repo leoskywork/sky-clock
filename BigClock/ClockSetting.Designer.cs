@@ -36,6 +36,7 @@
             this.groupBoxTimeSize = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanelClock = new System.Windows.Forms.TableLayoutPanel();
             this.panelClockTop = new System.Windows.Forms.Panel();
+            this.labelSize = new System.Windows.Forms.Label();
             this.panelRight = new System.Windows.Forms.Panel();
             this.groupBoxTimer = new System.Windows.Forms.GroupBox();
             this.buttonClearMessage = new System.Windows.Forms.Button();
@@ -59,7 +60,7 @@
             // numericUpDownFontSize
             // 
             this.numericUpDownFontSize.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.numericUpDownFontSize.Location = new System.Drawing.Point(3, 5);
+            this.numericUpDownFontSize.Location = new System.Drawing.Point(69, 5);
             this.numericUpDownFontSize.Maximum = new decimal(new int[] {
             999,
             0,
@@ -84,9 +85,9 @@
             // 
             this.buttonApply.Enabled = false;
             this.buttonApply.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonApply.Location = new System.Drawing.Point(78, 4);
+            this.buttonApply.Location = new System.Drawing.Point(8, 54);
             this.buttonApply.Name = "buttonApply";
-            this.buttonApply.Size = new System.Drawing.Size(80, 32);
+            this.buttonApply.Size = new System.Drawing.Size(121, 32);
             this.buttonApply.TabIndex = 2;
             this.buttonApply.Text = "Apply";
             this.buttonApply.UseVisualStyleBackColor = true;
@@ -137,6 +138,7 @@
             // 
             // panelClockTop
             // 
+            this.panelClockTop.Controls.Add(this.labelSize);
             this.panelClockTop.Controls.Add(this.numericUpDownFontSize);
             this.panelClockTop.Controls.Add(this.buttonApply);
             this.panelClockTop.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -144,6 +146,16 @@
             this.panelClockTop.Name = "panelClockTop";
             this.panelClockTop.Size = new System.Drawing.Size(170, 175);
             this.panelClockTop.TabIndex = 0;
+            // 
+            // labelSize
+            // 
+            this.labelSize.AutoSize = true;
+            this.labelSize.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelSize.Location = new System.Drawing.Point(4, 7);
+            this.labelSize.Name = "labelSize";
+            this.labelSize.Size = new System.Drawing.Size(59, 20);
+            this.labelSize.TabIndex = 3;
+            this.labelSize.Text = "Size:";
             // 
             // panelRight
             // 
@@ -311,6 +323,7 @@
             this.groupBoxTimeSize.ResumeLayout(false);
             this.tableLayoutPanelClock.ResumeLayout(false);
             this.panelClockTop.ResumeLayout(false);
+            this.panelClockTop.PerformLayout();
             this.panelRight.ResumeLayout(false);
             this.panelRight.PerformLayout();
             this.groupBoxTimer.ResumeLayout(false);
@@ -339,5 +352,6 @@
         private System.Windows.Forms.CheckBox checkBoxKillChrome;
         private System.Windows.Forms.CheckBox checkBoxSleepPC;
         private System.Windows.Forms.Button buttonClearMessage;
+        private System.Windows.Forms.Label labelSize;
     }
 }
