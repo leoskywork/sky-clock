@@ -199,7 +199,7 @@ namespace BigClock
             _TimerMinute = (int)numericUpDownTimerMinute.Value;
             _TimerStartTime = DateTime.Now;
             this.Out($"Run task in {_TimerMinute}min, at {_TimerStartTime.AddMinutes(_TimerMinute).ToShortTimeString()}");
-
+            this.Out($"DO NOT close this dialog, or the task will abort");
         }
 
         private void SetButtonAppearance(bool taskRunning)
