@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BigClock
 {
-    public class PowerTool
+    public class GlobalHub
     {
         public const string Version = "1.0.1";
         public const string AppName = "LEO Clock";

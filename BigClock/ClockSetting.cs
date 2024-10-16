@@ -188,7 +188,7 @@ namespace BigClock
                 //PowerTool.OSLock();
 
                 this.Out("going to sleep OS");
-                PowerTool.OSSleep();
+                GlobalHub.OSSleep();
             });
         }
 

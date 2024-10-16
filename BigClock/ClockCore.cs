@@ -140,4 +140,30 @@ namespace BigClock
             _CancelTokens = null;
         }
     }
+
+    public enum ClockFace
+    {
+        Time = 0,
+        TimeWhite,
+
+        TimeWeek,
+        TimeWeekWhite,
+
+        TimeDate,
+        TimeDateWhite,
+
+        TimeWeekDate,
+        TimeWeekDateWhite,
+
+        TimeBlink,
+        TimeBlinkWhite,
+
+        TimeWithSecond,
+        TimeWithSecondRed,
+
+        TimeSmallTopMost,
+        TimeSmallTopMostWhite,
+
+        TimeChangeableSize
+    }
 }
