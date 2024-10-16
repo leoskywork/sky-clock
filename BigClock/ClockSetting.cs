@@ -79,6 +79,7 @@ namespace BigClock
 
             _DisplayAt = DateTime.Now;
             this.Show();
+            this.Focus();
         }
 
         private void timerClose_Tick(object sender, EventArgs e)
