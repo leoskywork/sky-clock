@@ -112,8 +112,7 @@ namespace BigClock
                 {
                     this.Close();
                 }
-
-                if (DateTime.Now.Second % 10 == 0)
+                else if (DateTime.Now.Second % 10 == 0)
                 {
                     this.Out(this.Text);
                 }
