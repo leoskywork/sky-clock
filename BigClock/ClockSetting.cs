@@ -21,8 +21,12 @@ namespace BigClock
         private DateTime _DisplayAt;
         private int _TimerMinute;
         private DateTime _TimerStartTime;
-        private bool _RunningTask;
+        private bool _RunningTaskRequestedByUser;
         private ClockFace _ClockFace;
+
+        //better use enum, but use bool for now
+        private bool _HasCheckedChromeTask;
+        private bool _HasCheckedSleepPCTask;
 
         public event EventHandler<ClockSettingChangeArgs> ClockSettingChanged;
 
@@ -92,23 +96,26 @@ namespace BigClock
                 var lifeSeconds = timerSeconds > DefaultLifeSpanSeconds ? timerSeconds : DefaultLifeSpanSeconds;
                 var remainingSeconds = lifeSeconds - (int)passed.TotalSeconds;
                 this.Text = $"Setting - auto close in {(remainingSeconds > 60 ? remainingSeconds / 60 + " min " : "")}{remainingSeconds % 60} s";
+                var deadlineSeconds = lifeSeconds - (int)passed.TotalSeconds;
 
-                if (_RunningTask)
+                if (_RunningTaskRequestedByUser)
                 {
-                    if (passed.TotalSeconds > lifeSeconds - 10)
+                    if (deadlineSeconds < 10 && !_HasCheckedChromeTask)
                     {
-                        this.Out("Running task");
+                        _HasCheckedChromeTask = true;
+                        this.Out("Checking for running task");
                         RunTaskAsync();
                     }
 
-                    if (passed.TotalSeconds > lifeSeconds - 4)
+                    if (deadlineSeconds < 4 && !_HasCheckedSleepPCTask)
                     {
-                        this.Out("Sleeping PC");
+                        _HasCheckedSleepPCTask = true;
+                        this.Out("Checking for sleeping PC");
                         SleepPCAsync();
                     }
                 }
 
-                if (passed.TotalSeconds > lifeSeconds)
+                if (deadlineSeconds < 0)
                 {
                     this.Close();
                 }
@@ -157,18 +164,21 @@ namespace BigClock
                         }
                     }
                 }
-                else if (opt == 2)
+
+                if (opt == 2)
                 {
                     foreach (var name in processNames)
                     {
                         Process[] targetProcesses = Process.GetProcessesByName(name);
-                        this.Out($"find {targetProcesses.Length} {name}, going to kill");
+                        this.Out($"find {targetProcesses.Length} {name}{(targetProcesses.Length > 0 ? ", going to kill" : null)}");
 
                         foreach (Process process in targetProcesses)
                         {
                             process.Kill();
                             //process.WaitForExit();
                         }
+
+                        this.Out("phase task done");
                     }
                 }
             });
@@ -196,6 +206,7 @@ namespace BigClock
         private void buttonTimerStart_Click(object sender, EventArgs e)
         {
             SetButtonAppearance(true);
+            _RunningTaskRequestedByUser = true;
             _TimerMinute = (int)numericUpDownTimerMinute.Value;
             _TimerStartTime = DateTime.Now;
             this.Out($"Run task in {_TimerMinute}min, at {_TimerStartTime.AddMinutes(_TimerMinute).ToShortTimeString()}");
@@ -210,12 +221,14 @@ namespace BigClock
             this.buttonTest.Enabled = !taskRunning;
             this.checkBoxKillChrome.Enabled = !taskRunning;
             this.checkBoxSleepPC.Enabled = !taskRunning;
-            _RunningTask = taskRunning;
         }
 
         private void buttonTimerCancel_Click(object sender, EventArgs e)
         {
             SetButtonAppearance(false);
+            _RunningTaskRequestedByUser = false;
+            _HasCheckedChromeTask = false;
+            _HasCheckedSleepPCTask = false;
             _TimerMinute = 0;
             _TimerStartTime = DateTime.MinValue;
             _DisplayAt = DateTime.Now;
@@ -238,6 +251,8 @@ namespace BigClock
 
         private void Out(string message)
         {
+            if (this.Disposing || this.IsDisposed) return;
+
             if (this.InvokeRequired)
             {
                 this.BeginInvoke((Action<string>)Out, message);

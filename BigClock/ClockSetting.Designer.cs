@@ -48,6 +48,7 @@
             this.labelTimerMessage = new System.Windows.Forms.Label();
             this.numericUpDownTimerMinute = new System.Windows.Forms.NumericUpDown();
             this.buttonTimerStart = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFontSize)).BeginInit();
             this.groupBoxTimeSize.SuspendLayout();
             this.tableLayoutPanelClock.SuspendLayout();
@@ -118,7 +119,7 @@
             this.groupBoxTimeSize.Size = new System.Drawing.Size(758, 207);
             this.groupBoxTimeSize.TabIndex = 4;
             this.groupBoxTimeSize.TabStop = false;
-            this.groupBoxTimeSize.Text = "Clock";
+            this.groupBoxTimeSize.Text = "Big clock";
             // 
             // tableLayoutPanelClock
             // 
@@ -169,6 +170,7 @@
             // 
             // groupBoxTimer
             // 
+            this.groupBoxTimer.Controls.Add(this.label1);
             this.groupBoxTimer.Controls.Add(this.buttonClearMessage);
             this.groupBoxTimer.Controls.Add(this.checkBoxSleepPC);
             this.groupBoxTimer.Controls.Add(this.checkBoxKillChrome);
@@ -183,7 +185,7 @@
             this.groupBoxTimer.Size = new System.Drawing.Size(758, 257);
             this.groupBoxTimer.TabIndex = 5;
             this.groupBoxTimer.TabStop = false;
-            this.groupBoxTimer.Text = "Timer";
+            this.groupBoxTimer.Text = "Task timer";
             // 
             // buttonClearMessage
             // 
@@ -248,7 +250,7 @@
             // 
             this.buttonTimerCancel.Enabled = false;
             this.buttonTimerCancel.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonTimerCancel.Location = new System.Drawing.Point(211, 24);
+            this.buttonTimerCancel.Location = new System.Drawing.Point(257, 24);
             this.buttonTimerCancel.Name = "buttonTimerCancel";
             this.buttonTimerCancel.Size = new System.Drawing.Size(100, 32);
             this.buttonTimerCancel.TabIndex = 6;
@@ -282,7 +284,7 @@
             0,
             0});
             this.numericUpDownTimerMinute.Minimum = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -298,13 +300,23 @@
             // buttonTimerStart
             // 
             this.buttonTimerStart.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonTimerStart.Location = new System.Drawing.Point(90, 23);
+            this.buttonTimerStart.Location = new System.Drawing.Point(136, 23);
             this.buttonTimerStart.Name = "buttonTimerStart";
             this.buttonTimerStart.Size = new System.Drawing.Size(100, 32);
             this.buttonTimerStart.TabIndex = 5;
             this.buttonTimerStart.Text = "Start";
             this.buttonTimerStart.UseVisualStyleBackColor = true;
             this.buttonTimerStart.Click += new System.EventHandler(this.buttonTimerStart_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(76, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(39, 20);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "min";
             // 
             // ClockSetting
             // 
@@ -353,5 +365,6 @@
         private System.Windows.Forms.CheckBox checkBoxSleepPC;
         private System.Windows.Forms.Button buttonClearMessage;
         private System.Windows.Forms.Label labelSize;
+        private System.Windows.Forms.Label label1;
     }
 }
