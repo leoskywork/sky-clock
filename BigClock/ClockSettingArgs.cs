@@ -12,6 +12,8 @@ namespace BigClock
         public string PreviewValue { get; set; }
 
         public ClockFace CurrentFace { get; set; }
+
+        public bool TopMost { get; set; }
     }
 
     public class ClockSettingChangeArgs : EventArgs

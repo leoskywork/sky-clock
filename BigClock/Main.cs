@@ -349,6 +349,7 @@ namespace BigClock
                     //PreviewValue = string.Join(":", this.labelTime.Text.Split(' '))
                     CurrentClockSize = this.labelTime.Font.Size,
                     CurrentFace = _ClockCore.GetCurrentClockFace(),
+                    TopMost = this._TopMost
                 };
                 _ClockSetting = new ClockSetting(settingArgs);
                 _ClockSetting.FormClosing += (_, __) => { _ClockSetting = null; };

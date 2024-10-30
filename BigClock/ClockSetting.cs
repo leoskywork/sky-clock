@@ -47,6 +47,7 @@ namespace BigClock
 
             this.labelTimerMessage.Visible = false;
             _ClockFace = args.CurrentFace;
+            this.TopMost = args.TopMost;
 
             this.buttonTest.Visible = Properties.Settings.Default.ShowTest;
 
