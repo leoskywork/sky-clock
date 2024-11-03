@@ -185,7 +185,7 @@ namespace BigClock
             }
             else if (face == ClockFace.TimeBlinkWhite && !defaultCommaColor)
             {
-                this.labelTimeComma.ForeColor = Color.Gray;
+                this.labelTimeComma.ForeColor = Color.SkyBlue;//Color.Silver;// Color.Gray;
             }
             else
             {
